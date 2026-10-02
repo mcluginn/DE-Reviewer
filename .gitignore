@@ -12,5 +12,10 @@ npm-debug.log*
 
 # Extraction / Temp
 docx_extracted/
+de_extracted/
+de_docx_extracted/
 extract.ps1
+extract_de.js
 exam_topics_extracted.txt
+de_extracted_text.txt
+*.docx

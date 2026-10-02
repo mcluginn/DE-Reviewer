@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Physics 2 for Engineers | Midterm Review Platform</title>
-  <meta name="description" content="GEN 0110 / 0110L Physics 2 for Engineers interactive midterm review and tutoring system. Comprehensive reviewer, worked examples, practice generator, and interactive calculators.">
+  <title>Differential Equations for Engineers | Midterm Review Platform</title>
+  <meta name="description" content="GEN 0110 / MATH Differential Equations for Engineers interactive midterm review and tutoring system. Comprehensive reviewer, worked examples, algorithmic practice generator, and interactive calculators.">
   
   <!-- Modern Fonts from Problem Set -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,9 +30,9 @@
           </div>
           <div class="brand-text">
             <span class="brand-title">
-              PHYSICS 2 FOR <span class="brand-engine-highlight">ENGINEERS</span>
+              DIFFERENTIAL EQUATIONS FOR <span class="brand-engine-highlight">ENGINEERS</span>
             </span>
-            <span class="brand-subtitle">GEN 0110 / 0110L · MECHANICAL ENGINEERING SOCIETY</span>
+            <span class="brand-subtitle">GEN 0110 / MATH · MECHANICAL ENGINEERING SOCIETY</span>
           </div>
         </a>
       </div>
@@ -75,23 +75,23 @@
             <div class="hero-course-tag">
               <span>🎓</span> ADAPTIVE ENGINEERING PRACTICE · MIDTERM EXAMINATION
             </div>
-            <h1 class="hero-title">Physics 2 for Engineers</h1>
+            <h1 class="hero-title">Differential Equations for Engineers</h1>
             <div class="hero-course-meta">
-              <span class="hero-course-code">GEN 0110 / 0110L</span>
+              <span class="hero-course-code">GEN 0110 / MATH</span>
               <span class="hero-course-bullet">•</span>
-              <span>Midterm Examination Set A Reviewer</span>
+              <span>Midterm Examination Reviewer</span>
               <span class="hero-course-bullet">•</span>
               <span>College of Engineering</span>
             </div>
             <p class="mt-4 text-sm text-muted">
-              Master point-charge electrostatics, electric fields, scalar potential, wave propagation, acoustic decibels, Doppler kinematics, closed-pipe resonance, and static equilibrium.
+              Master first-order differential equations: exact differential forms, partial derivative tests, scalar potential functions, homogeneous functions and substitutions, linear integrating factors, separable equations, initial-value problems, and orthogonal trajectories.
             </p>
             <div class="hero-cta-strip">
-              <button class="btn btn-primary hero-btn" data-tab="topics">🚀 Review 15 Topics</button>
+              <button class="btn btn-primary hero-btn" data-tab="topics">🚀 Review 11 Topics</button>
               <button class="btn btn-accent hero-btn" data-tab="practice">⚡ Fresh Problem Generator</button>
               <button class="btn btn-outline hero-btn" data-tab="quiz">📝 Take Practice Quiz</button>
               <button class="btn btn-outline hero-btn" data-tab="formulas">📐 Formula Sheet</button>
-              <button class="btn btn-outline hero-btn" data-tab="calculators">🧮 12 Calculators</button>
+              <button class="btn btn-outline hero-btn" data-tab="calculators">🧮 7 Calculators</button>
             </div>
           </div>
 
@@ -176,7 +176,7 @@
               <div class="progress-bar-container">
                 <div class="progress-bar-fill" id="metric-mastery-bar" style="width: 0%"></div>
               </div>
-              <div class="metric-subtitle" id="metric-mastery-sub">0 of 31 reviewer questions mastered</div>
+              <div class="metric-subtitle" id="metric-mastery-sub">0 of 20 practice questions mastered</div>
             </div>
           </div>
 
@@ -189,13 +189,13 @@
             <div class="metric-body">
               <div class="metric-value-row">
                 <span class="metric-number" id="metric-topics-val">0</span>
-                <span class="metric-unit">/ 15</span>
+                <span class="metric-unit">/ 11</span>
               </div>
               <div class="metric-subtitle">Syllabus topics verified</div>
             </div>
           </div>
 
-          <!-- Card 4: Practice Problems Solved -->
+          <!-- Card 4: Questions Attempted -->
           <div class="metric-card">
             <div class="metric-header">
               <span>Questions Attempted</span>
@@ -214,133 +214,107 @@
         <!-- Topics Grid -->
         <div class="section-heading mt-6">
           <h2>Midterm Examination Core Competencies</h2>
-          <p class="text-muted">Directly mapped to the authorized GEN 0110 examination syllabus.</p>
+          <p class="text-muted">Directly mapped to the authorized Differential Equations examination syllabus.</p>
         </div>
 
         <div class="topic-cards-grid">
           <!-- Topic 1 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='coulomb-law'; window.app.switchTab('topics');">
-            <span class="topic-tag">01 · Electrostatics</span>
-            <h3>Electric Charge & Coulomb's Law</h3>
-            <p>Fundamental charge $e$, inverse-square force $F = k|q_1 q_2|/r^2$, and attraction vs repulsion.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='core-notation-first-order'; window.app.switchTab('topics');">
+            <span class="topic-tag">01 · Notation & Setup</span>
+            <h3>Core Notation & Differential Form</h3>
+            <p>Differential form $M(x,y)\\,dx + N(x,y)\\,dy = 0$, explicit form $dy/dx = F(x,y)$, and level curve solutions $\Psi(x,y) = C$.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 2 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='electric-field'; window.app.switchTab('topics');">
-            <span class="topic-tag">02 · Electrostatics</span>
-            <h3>Electric Field & Superposition</h3>
-            <p>Field intensity $E = k|Q|/r^2$, radial directions (outward/inward), and vector superposition.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='exactness-test'; window.app.switchTab('topics');">
+            <span class="topic-tag">02 · Exact Equations</span>
+            <h3>Exactness Test & Partial Derivatives</h3>
+            <p>Testing equality of mixed partial derivatives $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ and avoiding student traps.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 3 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='force-and-acceleration'; window.app.switchTab('topics');">
-            <span class="topic-tag">03 · Motion in Fields</span>
-            <h3>Force & Acceleration in Fields</h3>
-            <p>Particle dynamics $F = qE$, Newton's second law $a = qE/m$, and electron vs proton motion.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='solving-exact-des'; window.app.switchTab('topics');">
+            <span class="topic-tag">03 · Exact Equations</span>
+            <h3>Solving Exact Differential Equations</h3>
+            <p>Integrating $M$ to obtain $\Psi = \int M\\,dx + g(y)$, differentiating with respect to $y$, and matching $N$ to find $g(y)$.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 4 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='electric-potential'; window.app.switchTab('topics');">
-            <span class="topic-tag">04 · Potential</span>
-            <h3>Electric Potential (Scalar Voltage)</h3>
-            <p>Scalar nature of voltage $V = kQ/r$ in Volts (J/C) and algebraic superposition.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='homogeneous-functions-degree'; window.app.switchTab('topics');">
+            <span class="topic-tag">04 · Homogeneity</span>
+            <h3>Degree of Homogeneous Functions</h3>
+            <p>Evaluating total term degree $a + b$ in $x^a y^b$ and verifying the scaling condition $f(tx, ty) = t^n f(x,y)$.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 5 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='work-and-potential-energy'; window.app.switchTab('topics');">
-            <span class="topic-tag">05 · Energy</span>
-            <h3>Work & Multi-Charge Potential Energy</h3>
-            <p>Field work $W = q(V_a - V_b)$, pair energy $U = kq_1q_2/r$, and pairwise summation.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='linear-first-order-des'; window.app.switchTab('topics');">
+            <span class="topic-tag">05 · Linear Equations</span>
+            <h3>Linear First-Order Differential Equations</h3>
+            <p>Canonical standard form $y' + P(x)y = Q(x)$, integrating factor $\mu(x) = e^{\int P(x)\\,dx}$, and product rule integration.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 6 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='wave-basics'; window.app.switchTab('topics');">
-            <span class="topic-tag">06 · Waves</span>
-            <h3>Wave Fundamentals & Sound</h3>
-            <p>Universal wave relation $v = f\lambda$, transverse vs longitudinal, and pressure propagation.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='separable-des'; window.app.switchTab('topics');">
+            <span class="topic-tag">06 · Separation of Variables</span>
+            <h3>Separable Differential Equations</h3>
+            <p>Isolating differentials $\frac{1}{h(y)}\\,dy = g(x)\\,dx$, antiderivative integration, and solving explicitly for $y(x)$.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 7 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='speed-of-sound-temp'; window.app.switchTab('topics');">
-            <span class="topic-tag">07 · Acoustics</span>
-            <h3>Speed of Sound vs. Temperature</h3>
-            <p>Authoritative examination approximation $v \approx 331 + 0.6T$ with $T$ in °C.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='homogeneous-first-order-des'; window.app.switchTab('topics');">
+            <span class="topic-tag">07 · Homogeneous DEs</span>
+            <h3>Homogeneous First-Order DEs</h3>
+            <p>Ratio substitution $y = vx$, product rule derivative $y' = v + x v'$, and separating variables in $v$ and $x$.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 8 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='sound-intensity-decibels'; window.app.switchTab('topics');">
-            <span class="topic-tag">08 · Acoustics</span>
-            <h3>Sound Intensity & Decibels</h3>
-            <p>Inverse-square acoustic law $I = P/(4\pi r^2)$ and logarithmic decibel level $\beta = 10\log_{10}(I/I_0)$.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='initial-value-problems'; window.app.switchTab('topics');">
+            <span class="topic-tag">08 · Boundary Conditions</span>
+            <h3>Initial-Value Problems (IVPs)</h3>
+            <p>Obtaining the family general solution first, then substituting $(x_0, y_0)$ to determine the unique integration constant $C$.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 9 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='multiple-sound-sources'; window.app.switchTab('topics');">
-            <span class="topic-tag">09 · Acoustics</span>
-            <h3>Multiple Identical Sound Sources</h3>
-            <p>Non-linear decibel addition, intensity multiplication $I_{\text{total}} = NI$, and $\Delta\beta = 10\log_{10}N$.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='orthogonal-trajectories'; window.app.switchTab('topics');">
+            <span class="topic-tag">09 · Orthogonality</span>
+            <h3>Orthogonal Trajectories</h3>
+            <p>Eliminating family constant $c$, applying negative reciprocal slope $m_\perp = -1/m$, and integrating orthogonal curves.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 10 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='doppler-effect'; window.app.switchTab('topics');">
-            <span class="topic-tag">10 · Acoustics</span>
-            <h3>The Doppler Effect</h3>
-            <p>Moving sources and observers $f' = f(v \pm v_o)/(v \mp v_s)$ with physical sign rules.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='exact-trig-des'; window.app.switchTab('topics');">
+            <span class="topic-tag">10 · Transcendental Forms</span>
+            <h3>Exact Equations with Trigonometric Terms</h3>
+            <p>Exactness involving multi-variable products $y\cos(xy)$, chain rule differentiation, and $\tan y$ potential components.</p>
             <span class="card-action">Review Topic →</span>
           </div>
 
           <!-- Topic 11 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='closed-pipe-resonance'; window.app.switchTab('topics');">
-            <span class="topic-tag">11 · Resonance</span>
-            <h3>Closed Air Column Resonance</h3>
-            <p>Quarter-wavelength standing waves $f_1 = v/(4L)$ and odd harmonic spectrum ($1, 3, 5...$).</p>
-            <span class="card-action">Review Topic →</span>
-          </div>
-
-          <!-- Topic 12 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='neutral-point'; window.app.switchTab('topics');">
-            <span class="topic-tag">12 · Equilibrium</span>
-            <h3>Electrostatic Neutral Point</h3>
-            <p>Electric field null location between like charges, proportional to charge square roots.</p>
-            <span class="card-action">Review Topic →</span>
-          </div>
-
-          <!-- Topic 13 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='charged-spheres-equilibrium'; window.app.switchTab('topics');">
-            <span class="topic-tag">13 · Equilibrium</span>
-            <h3>Charged Spheres Equilibrium</h3>
-            <p>Suspended sphere static equilibrium FBD, resolving string tension, weight, and repulsion.</p>
-            <span class="card-action">Review Topic →</span>
-          </div>
-
-          <!-- Topic 14 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='cgs-electrostatics'; window.app.switchTab('topics');">
-            <span class="topic-tag">14 · Units</span>
-            <h3>CGS Electrostatic System</h3>
-            <p>statCoulombs, dynes, cm, and Coulomb's law with $k = 1$ in Gaussian-esu.</p>
-            <span class="card-action">Review Topic →</span>
-          </div>
-
-          <!-- Topic 15 -->
-          <div class="topic-overview-card" onclick="window.app.activeTopicId='vector-components-efield'; window.app.switchTab('topics');">
-            <span class="topic-tag">15 · Vector Resolution</span>
-            <h3>Vector Components of Field</h3>
-            <p>Resolving $E_x = E\cos\theta$ and $E_y = E\sin\theta$ for 2D charge geometry.</p>
+          <div class="topic-overview-card" onclick="window.app.activeTopicId='integrating-factors-non-exact'; window.app.switchTab('topics');">
+            <span class="topic-tag">11 · Special Factors</span>
+            <h3>Integrating Factors for Non-Exact Equations</h3>
+            <p>Testing single-variable conditions $\frac{M_y - N_x}{N} = f(x)$ and $\frac{N_x - M_y}{M} = g(y)$ to convert to exact forms.</p>
             <span class="card-action">Review Topic →</span>
           </div>
         </div>
 
-        <!-- Embedded Engineering Unit Converter -->
-        <div class="mt-6" id="unit-converter-mount"></div>
+        <!-- Compact Decision Protocol Banner -->
+        <div class="card mt-6" style="border-left: 4px solid var(--accent-500); padding: 1.5rem;">
+          <h3 style="margin-bottom: 0.5rem;">🧭 Compact Decision Protocol (6-Step Classification)</h3>
+          <p class="text-sm text-muted" style="margin-bottom: 1rem;">
+            When solving exam questions: (1) Check exactness $M_y = N_x$, (2) Check linear form $y' + Py = Q$, (3) Try separating variables $\frac{dy}{h(y)} = g(x)dx$, (4) If $y/x$ ratio, substitute $y = vx$, (5) For orthogonal trajectories use $m_\perp = -1/m$, (6) If not exact, test $\mu(x)$ and $\mu(y)$ criteria.
+          </p>
+          <button class="btn btn-sm btn-outline" onclick="window.app.switchTab('progress');">View Full Decision Guide & Analytics →</button>
+        </div>
       </div>
     </section>
 
@@ -366,8 +340,8 @@
     <section id="view-calculators" class="view-section" style="display:none;">
       <div class="container">
         <div class="section-heading text-center">
-          <h2>🧮 Interactive Physics Calculators</h2>
-          <p class="text-muted">Explore parameter sensitivity with automatic unit handling and step-by-step substitution.</p>
+          <h2>🧮 Interactive Differential Equations Calculators</h2>
+          <p class="text-muted">Explore parameter sensitivity, exactness criteria, and step-by-step mathematical solutions.</p>
         </div>
         <div id="calculators-mount"></div>
       </div>
@@ -383,18 +357,17 @@
       <div class="container" id="progress-mount"></div>
     </section>
 
-
   </main>
 
   <!-- Application Footer -->
   <footer class="app-footer">
     <div class="footer-inner">
       <div class="footer-left">
-        <strong>GEN 0110 / 0110L Physics 2 for Engineers</strong>
+        <strong>GEN 0110 / MATH Differential Equations for Engineers</strong>
         <p class="text-sm text-muted">Mechanical Engineering Society Tutoring Reviewer & Midterm Preparation System</p>
       </div>
       <div class="footer-right">
-        <span class="badge eng-badge-amber">Authoritative Scope: Midterm Set A Only</span>
+        <span class="badge eng-badge-amber">Authoritative Scope: Midterm Examination Only</span>
         <span class="text-sm text-muted font-mono">College of Engineering</span>
       </div>
     </div>

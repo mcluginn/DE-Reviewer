@@ -1,10 +1,11 @@
 /**
- * GEN 0110 / 0110L Physics 2 for Engineers - Interactive Quiz System
+ * Differential Equations for Engineers - Interactive Quiz & Exam Simulation System
  * Multiple-choice with randomized options, instant feedback, 6-step engineering solutions,
- * and performance tracking by topic and difficulty.
+ * instructor mini-quiz drill, and performance tracking by topic and difficulty.
  */
 
-import { PRACTICE_QUESTIONS } from "../data/practiceQuestions.js";
+import { PRACTICE_QUESTIONS, MINI_QUIZ } from "../data/practiceQuestions.js";
+import { TOPICS } from "../data/topics.js";
 import { DASHBOARD } from "./dashboard.js";
 
 function shuffle(array) {
@@ -64,22 +65,8 @@ export const QUIZ = {
 
   render() {
     const topicsList = [
-      { id: "all", title: "All Exam Topics (Full Practice Set 1-31)" },
-      { id: "coulomb-law", title: "Coulomb's Law & Charge" },
-      { id: "electric-field", title: "Electric Field & Superposition" },
-      { id: "force-and-acceleration", title: "Force & Acceleration in Field" },
-      { id: "electric-potential", title: "Electric Potential (Scalar)" },
-      { id: "work-and-potential-energy", title: "Work & Multi-Charge Energy" },
-      { id: "wave-basics", title: "Wave Fundamentals (v = fλ)" },
-      { id: "speed-of-sound-temp", title: "Speed of Sound vs. Temp" },
-      { id: "sound-intensity-decibels", title: "Sound Intensity & Decibels" },
-      { id: "multiple-sound-sources", title: "Multiple Sound Sources" },
-      { id: "doppler-effect", title: "The Doppler Effect" },
-      { id: "closed-pipe-resonance", title: "Closed-Pipe Resonance" },
-      { id: "neutral-point", title: "Electrostatic Neutral Point" },
-      { id: "charged-spheres-equilibrium", title: "Charged Spheres Equilibrium" },
-      { id: "cgs-electrostatics", title: "CGS Electrostatic System" },
-      { id: "vector-components-efield", title: "Vector Components of Field" }
+      { id: "all", title: "All Exam Topics (Full Practice Set 1 - 20)" },
+      ...TOPICS.map(t => ({ id: t.id, title: `Topic ${t.number}: ${t.title}` }))
     ];
 
     this.container.innerHTML = `
@@ -96,13 +83,13 @@ export const QUIZ = {
               <label>Difficulty Level:</label>
               <select id="quiz-filter-diff" class="form-select">
                 <option value="all">All Difficulties</option>
-                <option value="foundation">Foundation (Level 1)</option>
-                <option value="application">Application (Level 2)</option>
-                <option value="engineering">Engineering (Level 3)</option>
-                <option value="challenge">Challenge Problems</option>
+                <option value="foundation">Foundation (Q1 - Q5)</option>
+                <option value="application">Application (Q6 - Q14)</option>
+                <option value="challenge">Challenge (Q15 - Q20)</option>
               </select>
             </div>
             <button class="btn btn-primary" id="btn-start-quiz">Start / Reset Quiz</button>
+            <button class="btn btn-outline" id="btn-toggle-mini-quiz">🎓 Instructor Mini-Quiz Drill</button>
           </div>
         </div>
 
@@ -116,7 +103,59 @@ export const QUIZ = {
       this.setFilter(top, diff);
     };
 
+    document.getElementById("btn-toggle-mini-quiz").onclick = () => {
+      this.renderMiniQuizView();
+    };
+
     this.startQuiz();
+  },
+
+  renderMiniQuizView() {
+    const area = document.getElementById("quiz-active-area");
+    if (!area) return;
+
+    area.innerHTML = `
+      <div class="card mini-quiz-card">
+        <div class="mini-quiz-header">
+          <span class="badge badge-accent">Oral Tutoring Drill</span>
+          <h2>🎓 Instructor Mini-Quiz Oral Drill</h2>
+          <p class="text-muted">Direct conceptual oral check questions from Section 17 of the authoritative review guide.</p>
+        </div>
+
+        <div class="mini-quiz-grid">
+          ${MINI_QUIZ.map((mq, idx) => `
+            <div class="mini-quiz-item card" id="mq-card-${idx}">
+              <div class="mq-item-header">
+                <span class="badge badge-outline">Q${mq.number}</span>
+                <h4>${mq.question}</h4>
+              </div>
+              <button class="btn btn-sm btn-outline btn-mq-reveal" data-idx="${idx}">Reveal Instructor Key 👁️</button>
+              <div class="mq-reveal-box" id="mq-box-${idx}" style="display:none; margin-top:0.8rem; padding:0.8rem; background:rgba(15,23,42,0.6); border-radius:6px;">
+                <p><strong>Standard Answer:</strong> <span class="text-accent font-bold">${mq.answer}</span></p>
+                <p class="text-sm text-muted"><strong>Rationale:</strong> ${mq.explanation}</p>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    area.querySelectorAll(".btn-mq-reveal").forEach(btn => {
+      btn.onclick = () => {
+        const idx = btn.dataset.idx;
+        const box = area.querySelector(`#mq-box-${idx}`);
+        const isHidden = box.style.display === "none";
+        box.style.display = isHidden ? "block" : "none";
+        btn.textContent = isHidden ? "Hide Key" : "Reveal Instructor Key 👁️";
+        if (isHidden && window.app && window.app.renderMath) {
+          window.app.renderMath(box);
+        }
+      };
+    });
+
+    if (window.app && window.app.renderMath) {
+      window.app.renderMath(area);
+    }
   },
 
   renderQuestionView() {
@@ -194,7 +233,7 @@ export const QUIZ = {
               <div class="result-status">
                 ${selectedChoice === q.newCorrectIndex ? 
                   '<span class="text-success font-bold">✓ CORRECT! Excellent engineering problem-solving.</span>' : 
-                  '<span class="text-danger font-bold">✗ INCORRECT. Review the verified physical derivation below.</span>'
+                  '<span class="text-danger font-bold">✗ INCORRECT. Review the verified mathematical derivation below.</span>'
                 }
               </div>
               <div class="solution-markdown">
@@ -223,13 +262,17 @@ export const QUIZ = {
       const hintBtn = area.querySelector("#btn-quiz-hint");
       if (hintBtn) {
         hintBtn.onclick = () => {
-          area.querySelector("#quiz-hint-box").style.display = "block";
+          const hb = area.querySelector("#quiz-hint-box");
+          hb.style.display = "block";
+          if (window.app && window.app.renderMath) window.app.renderMath(hb);
         };
       }
       const stepBtn = area.querySelector("#btn-quiz-step");
       if (stepBtn) {
         stepBtn.onclick = () => {
-          area.querySelector("#quiz-step-box").style.display = "block";
+          const sb = area.querySelector("#quiz-step-box");
+          sb.style.display = "block";
+          if (window.app && window.app.renderMath) window.app.renderMath(sb);
         };
       }
     } else {
@@ -281,7 +324,7 @@ export const QUIZ = {
           <span class="score-pct">${pct}% Accuracy</span>
         </div>
         <p class="summary-eval">
-          ${pct >= 85 ? "🌟 Outstanding! You have mastered the Physics 2 Midterm topics." :
+          ${pct >= 85 ? "🌟 Outstanding! You have mastered the Differential Equations Midterm competencies." :
             pct >= 70 ? "👍 Good job! Review the questions you missed before taking the exam." :
             "⚠️ Needs Review. We recommend studying the topic modules and using the step-by-step calculators."}
         </p>

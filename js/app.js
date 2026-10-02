@@ -1,6 +1,6 @@
 /**
- * GEN 0110 / 0110L Physics 2 for Engineers - Main Application Controller
- * Handles routing, topic browsing, practice-me generation, formula sheet, and simulation mounting.
+ * Differential Equations for Engineers - Main Application Controller
+ * Handles routing, topic browsing, algorithmic practice generator, formula sheet, and interactive simulations.
  */
 
 import { TOPICS } from "./data/topics.js";
@@ -10,7 +10,7 @@ import { CALCULATORS } from "./components/calculators.js";
 import { QUIZ } from "./components/quiz.js";
 import { DASHBOARD } from "./components/dashboard.js";
 import { generateProblem } from "./engine/problemGenerator.js";
-import { convertUnit } from "./engine/physicsMath.js";
+import { DE_MATH } from "./engine/deMath.js";
 
 class App {
   constructor() {
@@ -29,7 +29,6 @@ class App {
     this.wireTheme();
     this.renderHomeMastery();
     this.renderFormulaSheet();
-    this.renderUnitConverter();
     this.renderPracticeMe();
     
     // Default route
@@ -61,16 +60,16 @@ class App {
     const themeBtn = document.getElementById("btn-theme-toggle");
     if (!themeBtn) return;
     
-    const savedTheme = localStorage.getItem("physics2_theme") || "dark";
+    const savedTheme = localStorage.getItem("de_theme") || "dark";
     document.documentElement.setAttribute("data-theme", savedTheme);
-    themeBtn.textContent = savedTheme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
+    themeBtn.textContent = savedTheme === "dark" ? "☀️ Light" : "🌙 Dark";
 
     themeBtn.addEventListener("click", () => {
       const current = document.documentElement.getAttribute("data-theme") || "dark";
       const next = current === "dark" ? "light" : "dark";
       document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("physics2_theme", next);
-      themeBtn.textContent = next === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode";
+      localStorage.setItem("de_theme", next);
+      themeBtn.textContent = next === "dark" ? "☀️ Light" : "🌙 Dark";
     });
   }
 
@@ -189,14 +188,11 @@ class App {
     const correct = data.totalCorrect;
     const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
 
-    // Count topics with at least 1 correct attempt
     const topicsMastered = Object.values(data.topics || {}).filter(t => t.correct > 0).length;
     const streakDays = Math.max(1, Math.min(30, 3 + Math.floor(total / 3)));
 
     const streakEl = document.getElementById("metric-streak-val");
     if (streakEl) streakEl.textContent = streakDays;
-    const navStreak = document.getElementById("streak-counter");
-    if (navStreak) navStreak.textContent = streakDays;
 
     const masteryEl = document.getElementById("metric-mastery-val");
     if (masteryEl) masteryEl.textContent = `${pct}%`;
@@ -273,7 +269,7 @@ class App {
 
         <!-- Concept -->
         <div class="section-block">
-          <h3 class="section-title">💡 Physical Concept</h3>
+          <h3 class="section-title">💡 Mathematical Concept</h3>
           <div class="concept-body">
             <p>${t.concept.replace(/\n\n/g, "</p><p>")}</p>
           </div>
@@ -281,15 +277,15 @@ class App {
 
         <!-- Formula Card -->
         <div class="section-block formula-hero-card">
-          <h3 class="section-title">📐 Governing Equation</h3>
+          <h3 class="section-title">📐 Governing Differential Equation</h3>
           <div class="math-hero">$$${t.formulaLatex}$$</div>
           <div class="vars-table-wrapper">
             <table class="vars-table">
               <thead>
                 <tr>
                   <th>Symbol</th>
-                  <th>Variable Name</th>
-                  <th>SI / CGS Unit</th>
+                  <th>Variable / Function</th>
+                  <th>Role / Units</th>
                   <th>Description</th>
                 </tr>
               </thead>
@@ -299,7 +295,7 @@ class App {
                     <td><code>${v.symbol}</code></td>
                     <td><strong>${v.name}</strong></td>
                     <td><em>${v.unit}</em></td>
-                    <td>${v.desc}</td>
+                    <td>${v.description || v.desc}</td>
                   </tr>
                 `).join("")}
               </tbody>
@@ -319,7 +315,7 @@ class App {
 
         <!-- Interactive Diagram / Visual Simulation if available -->
         <div class="section-block sim-block" id="topic-sim-wrapper">
-          <h3 class="section-title">🔬 Interactive Physical Simulation</h3>
+          <h3 class="section-title">🔬 Interactive Direction Field & Trajectory Visualizer</h3>
           <div class="sim-container">
             <canvas id="topic-sim-canvas" width="680" height="280"></canvas>
             <div id="topic-sim-controls" class="sim-controls-panel"></div>
@@ -485,24 +481,22 @@ class App {
     const wrapper = document.getElementById("topic-sim-wrapper");
     if (!canvas || !wrapper) return;
 
-    if (topicId === "coulomb-law" || topicId === "neutral-point") {
+    if (topicId === "exactness-test" || topicId === "solving-exact-des" || topicId === "exact-trig-des") {
       wrapper.style.display = "block";
-      SIMULATIONS.initCoulombSim("topic-sim-canvas", controls);
-    } else if (topicId === "electric-field" || topicId === "vector-components-efield") {
+      SIMULATIONS.initExactPotentialSim("topic-sim-canvas", controls);
+    } else if (topicId === "orthogonal-trajectories") {
       wrapper.style.display = "block";
-      SIMULATIONS.initVectorComponentsSim("topic-sim-canvas", controls);
-    } else if (topicId === "wave-basics" || topicId === "speed-of-sound-temp") {
+      SIMULATIONS.initOrthogonalSim("topic-sim-canvas", controls);
+    } else if (
+      topicId === "core-notation-first-order" ||
+      topicId === "linear-first-order-des" ||
+      topicId === "separable-des" ||
+      topicId === "homogeneous-first-order-des" ||
+      topicId === "initial-value-problems" ||
+      topicId === "integrating-factors-non-exact"
+    ) {
       wrapper.style.display = "block";
-      SIMULATIONS.initSoundWaveSim("topic-sim-canvas", controls);
-    } else if (topicId === "doppler-effect") {
-      wrapper.style.display = "block";
-      SIMULATIONS.initDopplerSim("topic-sim-canvas", controls);
-    } else if (topicId === "closed-pipe-resonance") {
-      wrapper.style.display = "block";
-      SIMULATIONS.initPipeResonanceSim("topic-sim-canvas", controls);
-    } else if (topicId === "charged-spheres-equilibrium") {
-      wrapper.style.display = "block";
-      SIMULATIONS.initChargedSpheresSim("topic-sim-canvas", controls);
+      SIMULATIONS.initDirectionFieldSim("topic-sim-canvas", controls);
     } else {
       wrapper.style.display = "none";
     }
@@ -626,8 +620,8 @@ class App {
     mount.innerHTML = `
       <div class="formula-sheet-container">
         <div class="formula-sheet-header card">
-          <h2>📐 Physics 2 for Engineers — Authoritative Midterm Formula Sheet</h2>
-          <p class="text-muted">Direct formula references, units, and conditions from the GEN 0110 Midterm Reviewer.</p>
+          <h2>📐 Differential Equations for Engineers — Authoritative Midterm Formula Sheet</h2>
+          <p class="text-muted">Direct formula references, integration rules, and applicability conditions from the Examination Reviewer.</p>
         </div>
 
         <div class="formula-sheet-grid">
@@ -661,82 +655,6 @@ class App {
     });
 
     this.renderMath();
-  }
-
-  renderUnitConverter() {
-    const mount = document.getElementById("unit-converter-mount");
-    if (!mount) return;
-
-    mount.innerHTML = `
-      <div class="card unit-converter-card">
-        <h3>🔄 Engineering Unit Conversion Utility</h3>
-        <p class="text-muted">Ensure units are internally consistent before solving.</p>
-        <div class="form-row">
-          <div class="input-group">
-            <label>Value:</label>
-            <input type="number" id="uc-val" value="1.0" step="any">
-          </div>
-          <div class="input-group">
-            <label>From Unit:</label>
-            <select id="uc-from" class="form-select">
-              <optgroup label="Charge">
-                <option value="uC" selected>Microcoulombs (μC)</option>
-                <option value="nC">Nanocoulombs (nC)</option>
-                <option value="C">Coulombs (C)</option>
-                <option value="statC">statCoulombs (statC)</option>
-              </optgroup>
-              <optgroup label="Distance">
-                <option value="cm">Centimeters (cm)</option>
-                <option value="mm">Millimeters (mm)</option>
-                <option value="m">Meters (m)</option>
-              </optgroup>
-              <optgroup label="Force">
-                <option value="N">Newtons (N)</option>
-                <option value="dynes">Dynes</option>
-              </optgroup>
-            </select>
-          </div>
-          <div class="input-group">
-            <label>To Unit:</label>
-            <select id="uc-to" class="form-select">
-              <optgroup label="Charge">
-                <option value="C" selected>Coulombs (C)</option>
-                <option value="uC">Microcoulombs (μC)</option>
-                <option value="nC">Nanocoulombs (nC)</option>
-                <option value="statC">statCoulombs (statC)</option>
-              </optgroup>
-              <optgroup label="Distance">
-                <option value="m">Meters (m)</option>
-                <option value="cm">Centimeters (cm)</option>
-                <option value="mm">Millimeters (mm)</option>
-              </optgroup>
-              <optgroup label="Force">
-                <option value="N">Newtons (N)</option>
-                <option value="dynes">Dynes</option>
-              </optgroup>
-            </select>
-          </div>
-        </div>
-        <button class="btn btn-primary" id="btn-run-uc">Convert</button>
-        <div id="uc-output" class="uc-result-box"></div>
-      </div>
-    `;
-
-    const runConv = () => {
-      const val = parseFloat(document.getElementById("uc-val").value);
-      const from = document.getElementById("uc-from").value;
-      const to = document.getElementById("uc-to").value;
-      const res = convertUnit(val, from, to);
-      document.getElementById("uc-output").innerHTML = `
-        <strong>${val} ${from}</strong> = <span class="text-accent font-bold">${res.toExponential(4)} ${to}</span> (${res.toFixed(6)} ${to})
-      `;
-    };
-
-    mount.querySelector("#btn-run-uc").onclick = runConv;
-    mount.querySelector("#uc-val").oninput = runConv;
-    mount.querySelector("#uc-from").onchange = runConv;
-    mount.querySelector("#uc-to").onchange = runConv;
-    runConv();
   }
 
   formatMathBlock(raw) {
@@ -792,7 +710,7 @@ class App {
         continue;
       }
 
-      if (line.includes("\\frac") || line.includes("\\times") || line.includes("\\sqrt") || line.includes("\\approx") || line.includes("\\cdot")) {
+      if (line.includes("\\frac") || line.includes("\\int") || line.includes("\\partial") || line.includes("\\Psi") || line.includes("\\mu") || line.includes("\\implies") || line.includes("\\approx")) {
         let content = line;
         if (content.startsWith("$$") && content.endsWith("$$")) {
           content = content.slice(2, -2).trim();
@@ -818,7 +736,9 @@ class App {
         window.renderMathInElement(container, {
           delimiters: [
             { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false }
+            { left: "$", right: "$", display: false },
+            { left: "\\(", right: "\\)", display: false },
+            { left: "\\[", right: "\\]", display: true }
           ],
           throwOnError: false,
           errorColor: "#f7b943"
@@ -838,14 +758,15 @@ class App {
     const walk = (node) => {
       if (node.nodeType === Node.TEXT_NODE) {
         let text = node.nodeValue;
-        if (text && (text.includes("$$") || text.includes("$"))) {
+        if (text && (text.includes("$$") || text.includes("$") || text.includes("\\(") || text.includes("\\["))) {
           const parent = node.parentNode;
           if (parent && !["SCRIPT", "STYLE", "CODE", "PRE"].includes(parent.nodeName)) {
-            // Replace $$...$$ and $...$
             const span = document.createElement("span");
             let html = text
               .replace(/\$\$(.*?)\$\$/g, (m, math) => `<span class="fallback-math display-math">${this.formatLatexFallback(math)}</span>`)
-              .replace(/\$(.*?)\$/g, (m, math) => `<span class="fallback-math inline-math">${this.formatLatexFallback(math)}</span>`);
+              .replace(/\\\[(.*?)\\\]/g, (m, math) => `<span class="fallback-math display-math">${this.formatLatexFallback(math)}</span>`)
+              .replace(/\$(.*?)\$/g, (m, math) => `<span class="fallback-math inline-math">${this.formatLatexFallback(math)}</span>`)
+              .replace(/\\\((.*?)\\\)/g, (m, math) => `<span class="fallback-math inline-math">${this.formatLatexFallback(math)}</span>`);
             span.innerHTML = html;
             parent.replaceChild(span, node);
           }
@@ -860,24 +781,25 @@ class App {
   formatLatexFallback(latex) {
     return latex
       .replace(/\\frac\{(.*?)\}\{(.*?)\}/g, '<span class="math-frac"><span class="math-num">$1</span><span class="math-den">$2</span></span>')
-      .replace(/\\sqrt\{(.*?)\}/g, '√($1)')
+      .replace(/\\partial/g, '∂')
+      .replace(/\\int/g, '∫')
+      .replace(/\\Psi/g, 'Ψ')
+      .replace(/\\mu/g, 'μ')
+      .replace(/\\theta/g, 'θ')
+      .replace(/\\perp/g, '⊥')
+      .replace(/\\iff/g, '⟺')
+      .replace(/\\implies/g, '⟹')
+      .replace(/\\cdot/g, '·')
       .replace(/\\times/g, '×')
       .replace(/\\approx/g, '≈')
-      .replace(/\\cdot/g, '·')
       .replace(/\\pm/g, '±')
       .replace(/\\mp/g, '∓')
-      .replace(/\\pi/g, 'π')
-      .replace(/\\lambda/g, 'λ')
-      .replace(/\\theta/g, 'θ')
-      .replace(/\\beta/g, 'β')
-      .replace(/\\Delta/g, 'Δ')
-      .replace(/\\sum/g, '∑')
-      .replace(/\\hat\{i\}/g, 'î')
-      .replace(/\\hat\{j\}/g, 'ĵ')
-      .replace(/\\vec\{(.*?)\}/g, '<span class="math-vec">$1</span>')
+      .replace(/\\sqrt\{(.*?)\}/g, '√($1)')
       .replace(/\\text\{(.*?)\}/g, '$1')
       .replace(/\^2/g, '²')
       .replace(/\^3/g, '³')
+      .replace(/\^4/g, '⁴')
+      .replace(/\^5/g, '⁵')
       .replace(/\^([0-9]+)/g, '<sup>$1</sup>')
       .replace(/_([0-9a-zA-Z]+)/g, '<sub>$1</sub>');
   }

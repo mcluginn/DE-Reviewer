@@ -1,974 +1,707 @@
 /**
- * GEN 0110 / 0110L Physics 2 for Engineers - Verified Question Bank
- * Sourced from Midterm Examination Topics-Only Tutoring Reviewer (Questions 1 - 31)
+ * Differential Equations for Engineers - Complete Exam Practice Bank
+ * Authoritative source: de_exam_topics_only.docx (Questions 1 - 20 & Instructor Mini-Quiz)
+ * Levels: Foundation (1-5), Application (6-14), Challenge (15-20)
+ * All math typeset with KaTeX / MathML syntax and progressive reveal steps.
  */
 
 export const PRACTICE_QUESTIONS = [
-  // PART A - CONCEPTS
+  // FOUNDATION LEVEL (1 - 5)
   {
-    id: "q1",
-    section: "Part A - Concepts",
+    id: "de-pq-1",
+    section: "Part A - Foundation",
     number: 1,
-    topicId: "coulomb-law",
-    topicTitle: "Electric Charge & Coulomb's Law",
+    topicId: "exactness-test",
+    topicTitle: "Exactness Test",
     difficulty: "Foundation",
-    question: "What is the magnitude of the elementary charge carried by a proton?",
+    question: "Determine whether the differential equation $$(5xy + 2y)\\,dx + \\left(\\frac{5}{2}x^2 + 2x\\right)dy = 0$$ is exact.",
     options: [
-      "1.60 × 10⁻¹⁹ C",
-      "1.60 × 10⁻¹⁸ C",
-      "9.11 × 10⁻³¹ C",
-      "8.99 × 10⁹ C"
+      "Exact, because $M_y = N_x = 5x + 2$",
+      "Not exact, because $M_x \\neq N_y$",
+      "Exact, with integrating factor $\\mu(x) = x$",
+      "Not exact, because $M_y = 5x$ while $N_x = 5x + 2$"
     ],
     correctIndex: 0,
-    hint: "Recall the fundamental quantum of charge symbolized by e.",
-    firstStep: "The elementary charge e is approximately 1.602 × 10⁻¹⁹ C.",
-    fullSolution: `**CONCEPT:**
-The elementary electric charge is the magnitude of electric charge carried by a single proton (or electron).
+    hint: "Identify $M(x,y)$ as the coefficient of $dx$ and $N(x,y)$ as the coefficient of $dy$, then compute partial derivatives $M_y$ and $N_x$.",
+    firstStep: "Compute $M_y = \\frac{\\partial}{\\partial y}(5xy + 2y) = 5x + 2$.",
+    fullSolution: `**1. IDENTIFY COEFFICIENTS:**
+$$M(x,y) = 5xy + 2y, \\quad N(x,y) = \\frac{5}{2}x^2 + 2x$$
 
-**VALUE:**
-$$e = 1.602 \\times 10^{-19}\\text{ C} \\approx 1.60 \\times 10^{-19}\\text{ C}$$
+**2. DIFFERENTIATE PARTIALLY:**
+* With respect to $y$ (treating $x$ as constant):
+$$\\frac{\\partial M}{\\partial y} = \\frac{\\partial}{\\partial y}(5xy + 2y) = 5x + 2$$
+* With respect to $x$ (treating $y$ as constant):
+$$\\frac{\\partial N}{\\partial x} = \\frac{\\partial}{\\partial x}\\left(\\frac{5}{2}x^2 + 2x\\right) = \\frac{5}{2}(2x) + 2 = 5x + 2$$
 
-* $9.11 \\times 10^{-31}\\text{ kg}$ is the rest mass of an electron (not charge).
-* $8.99 \\times 10^9\\text{ N}\\cdot\\text{m}^2/\\text{C}^2$ is Coulomb's constant $k$.`,
-    finalAnswer: "1.60 × 10⁻¹⁹ C"
+**3. COMPARE RESULTS:**
+$$\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x} = 5x + 2$$
+Because the partial derivatives are identical for all $(x,y)$, the equation is exact.`,
+    finalAnswer: "Exact, because $M_y = N_x = 5x + 2$"
   },
   {
-    id: "q2",
-    section: "Part A - Concepts",
+    id: "de-pq-2",
+    section: "Part A - Foundation",
     number: 2,
-    topicId: "coulomb-law",
-    topicTitle: "Electric Charge & Coulomb's Law",
+    topicId: "linear-first-order-des",
+    topicTitle: "Linear First-Order Differential Equations",
     difficulty: "Foundation",
-    question: "If the separation between two fixed charges is tripled, by what factor does the magnitude of the Coulomb force change?",
+    question: "Find the integrating factor $\\mu(x)$ for the linear first-order differential equation $$\\frac{dy}{dx} + 5y = 10.$$",
     options: [
-      "3",
-      "1/3",
-      "1/9",
-      "9"
+      "\\(\\mu(x) = e^{5x}\\)",
+      "\\(\\mu(x) = 5e^x\\)",
+      "\\(\\mu(x) = e^{-5x}\\)",
+      "\\(\\mu(x) = \\ln(5x)\\)"
     ],
-    correctIndex: 2,
-    hint: "Coulomb's Law follows an inverse-square relationship with distance.",
-    firstStep: "Write $F \\propto 1/r^2$. Replace $r$ with $3r$.",
-    fullSolution: `**FORMULA:**
-$$F = \\frac{k|q_1 q_2|}{r^2}$$
+    correctIndex: 0,
+    hint: "Match the equation with the standard canonical linear form $\\frac{dy}{dx} + P(x)y = Q(x)$ and use $\\mu(x) = e^{\\int P(x)\\,dx}$.",
+    firstStep: "Identify the coefficient of $y$: here $P(x) = 5$.",
+    fullSolution: `**1. STANDARD LINEAR FORM:**
+$$\\frac{dy}{dx} + P(x)y = Q(x)$$
+Comparing terms:
+$$P(x) = 5, \\quad Q(x) = 10$$
 
-**RELATIONSHIP:**
-When the distance is tripled ($r' = 3r$):
-$$F' = \\frac{k|q_1 q_2|}{(3r)^2} = \\frac{k|q_1 q_2|}{9r^2} = \\frac{1}{9} F$$
+**2. INTEGRATING FACTOR FORMULA:**
+$$\\mu(x) = e^{\\int P(x)\\,dx} = e^{\\int 5\\,dx}$$
 
-The force decreases to one-ninth (1/9) of its original value.`,
-    finalAnswer: "1/9"
+**3. EVALUATION:**
+$$\\mu(x) = e^{5x}$$
+*(We set the integration constant to zero because any nonzero constant cancels across the equation).*`,
+    finalAnswer: "\\mu(x) = e^{5x}"
   },
   {
-    id: "q3",
-    section: "Part A - Concepts",
+    id: "de-pq-3",
+    section: "Part A - Foundation",
     number: 3,
-    topicId: "electric-field",
-    topicTitle: "Electric Field & Superposition",
+    topicId: "homogeneous-functions-degree",
+    topicTitle: "Homogeneous Functions & Degree Recognition",
     difficulty: "Foundation",
-    question: "The electric field of a negative point charge is directed:",
+    question: "Determine the degree of homogeneity of the multivariable function $$f(x,y) = 2x^3 y^2 - 7xy^4 + 4y^5.$$",
     options: [
-      "Radially outward",
-      "Radially inward",
-      "Tangentially",
-      "Along an equipotential line"
+      "Degree 5",
+      "Degree 3",
+      "Degree 4",
+      "Degree 9"
     ],
-    correctIndex: 1,
-    hint: "The electric field direction is defined by the force on a positive test charge.",
-    firstStep: "A positive test charge is attracted toward a negative charge.",
-    fullSolution: `**PHYSICAL PRINCIPLE:**
-The electric field $\\vec{E}$ at any location represents the force per unit positive test charge $\\vec{E} = \\vec{F}/q_0$.
-Because a positive test charge is attracted toward a negative charge, electric field lines point **radially inward** toward negative source charges.`,
-    finalAnswer: "Radially inward"
+    correctIndex: 0,
+    hint: "For each polynomial term $c x^a y^b$, the total degree is $a + b$. Check whether every term has the same sum.",
+    firstStep: "Calculate the sum of powers for the first term $2x^3 y^2$: $3 + 2 = 5$.",
+    fullSolution: `**1. EVALUATE EACH TERM'S TOTAL DEGREE:**
+* Term 1: $2x^3 y^2 \\implies 3 + 2 = 5$
+* Term 2: $-7x^1 y^4 \\implies 1 + 4 = 5$
+* Term 3: $4y^5 \\implies 0 + 5 = 5$
+
+**2. TEST USING SCALING DEFINITION:**
+$$f(tx, ty) = 2(tx)^3(ty)^2 - 7(tx)(ty)^4 + 4(ty)^5$$
+$$f(tx, ty) = 2t^5 x^3 y^2 - 7t^5 x y^4 + 4t^5 y^5 = t^5 f(x,y)$$
+
+**3. CONCLUSION:**
+Since $f(tx, ty) = t^5 f(x,y)$, the function is homogeneous of degree 5.`,
+    finalAnswer: "Degree 5"
   },
   {
-    id: "q4",
-    section: "Part A - Concepts",
+    id: "de-pq-4",
+    section: "Part A - Foundation",
     number: 4,
-    topicId: "electric-potential",
-    topicTitle: "Electric Potential",
+    topicId: "separable-des",
+    topicTitle: "Separable Differential Equations",
     difficulty: "Foundation",
-    question: "Which statement correctly describes electric potential?",
+    question: "Solve the separable differential equation $$\\frac{dy}{dx} = 2x(y - 3).$$",
     options: [
-      "It is a vector measured in N/C.",
-      "It is a scalar measured in V.",
-      "It is a vector measured in J.",
-      "It is a scalar measured in F."
+      "\\(y = 3 + C e^{x^2}\\)",
+      "\\(y = C e^{2x} + 3\\)",
+      "\\(y = 3 - C e^{-x^2}\\)",
+      "\\(y = (x^2 + C)^2 + 3\\)"
     ],
-    correctIndex: 1,
-    hint: "Electric potential is work per unit charge.",
-    firstStep: "Volt = Joule / Coulomb.",
-    fullSolution: `**PHYSICAL PRINCIPLE:**
-Electric potential $V$ is defined as potential energy per unit charge ($V = U/q_0$).
-* It is a **SCALAR** quantity (it has no direction in space).
-* Its SI unit is the **Volt (V)**, where $1\\text{ V} = 1\\text{ J/C}$.
-* N/C is the unit for electric field (vector). Farad (F) is capacitance.`,
-    finalAnswer: "It is a scalar measured in V."
+    correctIndex: 0,
+    hint: "Separate all $y$-terms with $dy$ on the left side and all $x$-terms with $dx$ on the right side.",
+    firstStep: "Divide both sides by $(y - 3)$ and multiply by $dx$: $\\frac{dy}{y - 3} = 2x\\,dx$.",
+    fullSolution: `**1. SEPARATE VARIABLES:**
+$$\\frac{1}{y - 3}\\,dy = 2x\\,dx$$
+
+**2. INTEGRATE BOTH SIDES:**
+$$\\int \\frac{1}{y - 3}\\,dy = \\int 2x\\,dx$$
+$$\\ln|y - 3| = x^2 + C_1$$
+
+**3. EXPONENTIATE:**
+$$|y - 3| = e^{x^2 + C_1} = e^{C_1} e^{x^2} = C e^{x^2}$$
+$$y - 3 = C e^{x^2} \\implies y = 3 + C e^{x^2}$$`,
+    finalAnswer: "y = 3 + C e^{x^2}"
   },
   {
-    id: "q5",
-    section: "Part A - Concepts",
+    id: "de-pq-5",
+    section: "Part A - Foundation",
     number: 5,
-    topicId: "wave-basics",
-    topicTitle: "Wave Fundamentals",
+    topicId: "linear-first-order-des",
+    topicTitle: "Linear First-Order Differential Equations",
     difficulty: "Foundation",
-    question: "Which equation correctly relates wave speed, frequency, and wavelength?",
+    question: "Solve the linear first-order differential equation $$\\frac{dy}{dx} + 3y = 9x.$$",
     options: [
-      "v = f / λ",
-      "v = λ / f",
-      "v = fλ",
-      "v = f²λ"
+      "\\(y = 3x - 1 + C e^{-3x}\\)",
+      "\\(y = 3x + 1 + C e^{3x}\\)",
+      "\\(y = 9x - 3 + C e^{-3x}\\)",
+      "\\(y = \\frac{9}{2}x^2 + C e^{-3x}\\)"
     ],
-    correctIndex: 2,
-    hint: "Speed = distance / time = wavelength × frequency.",
-    firstStep: "Unit check: $[f] = 1/\\text{s}$, $[\\lambda] = \\text{m}$, so $[f\\lambda] = \\text{m/s}$.",
-    fullSolution: `**GOVERNING EQUATION:**
-$$v = f\\lambda$$
-where $v$ is wave speed (m/s), $f$ is frequency (Hz or 1/s), and $\\lambda$ is wavelength (m).`,
-    finalAnswer: "v = fλ"
+    correctIndex: 0,
+    hint: "Calculate the integrating factor $\\mu(x) = e^{\\int 3\\,dx} = e^{3x}$, multiply through, and integrate by parts.",
+    firstStep: "Multiply the equation by $e^{3x}$: $e^{3x}\\frac{dy}{dx} + 3e^{3x}y = 9x e^{3x}$.",
+    fullSolution: `**1. INTEGRATING FACTOR:**
+$$P(x) = 3 \\implies \\mu(x) = e^{\\int 3\\,dx} = e^{3x}$$
+
+**2. RECOGNIZE PRODUCT RULE DERIVATIVE:**
+$$\\frac{d}{dx}\\left[e^{3x} y\\right] = 9x e^{3x}$$
+
+**3. INTEGRATE BY PARTS:**
+$$e^{3x} y = \\int 9x e^{3x}\\,dx + C$$
+Let $u = 9x \\implies du = 9\\,dx$, and $dv = e^{3x}\\,dx \\implies v = \\frac{1}{3}e^{3x}$:
+$$\\int 9x e^{3x}\\,dx = 3x e^{3x} - \\int 3e^{3x}\\,dx = 3x e^{3x} - e^{3x}$$
+
+**4. ISOLATE y:**
+$$e^{3x} y = 3x e^{3x} - e^{3x} + C$$
+$$y = 3x - 1 + C e^{-3x}$$`,
+    finalAnswer: "y = 3x - 1 + C e^{-3x}"
   },
+
+  // APPLICATION LEVEL (6 - 14)
   {
-    id: "q6",
-    section: "Part A - Concepts",
+    id: "de-pq-6",
+    section: "Part B - Application",
     number: 6,
-    topicId: "wave-basics",
-    topicTitle: "Wave Fundamentals",
-    difficulty: "Foundation",
-    question: "Sound propagating in air is classified as:",
+    topicId: "solving-exact-des",
+    topicTitle: "Solving Exact Differential Equations",
+    difficulty: "Application",
+    question: "Solve the exact differential equation $$(4x + 5y)\\,dx + (5x + 6y)\\,dy = 0.$$",
     options: [
-      "A transverse electromagnetic wave",
-      "A transverse mechanical wave",
-      "A longitudinal mechanical wave",
-      "An electrostatic wave"
+      "\\(2x^2 + 5xy + 3y^2 = C\\)",
+      "\\(4x^2 + 5xy + 6y^2 = C\\)",
+      "\\(2x^2 + 10xy + 3y^2 = C\\)",
+      "\\(x^2 + 5xy + 2y^2 = C\\)"
     ],
-    correctIndex: 2,
-    hint: "Air molecules oscillate back and forth parallel to the wave direction.",
-    firstStep: "Mechanical waves require a physical medium; longitudinal means oscillations are parallel to propagation.",
-    fullSolution: `**PHYSICAL CLASSIFICATION:**
-Sound in air requires a physical medium (mechanical) and propagates via pressure oscillations where air particles oscillate back and forth parallel to the direction of wave travel (longitudinal).`,
-    finalAnswer: "A longitudinal mechanical wave"
+    correctIndex: 0,
+    hint: "Verify $M_y = N_x = 5$, integrate $M$ with respect to $x$ to find $\\Psi(x,y)$, then differentiate with respect to $y$ to determine $g(y)$.",
+    firstStep: "Check exactness: $M_y = 5$ and $N_x = 5$ (exact). Integrate $M$: $\\Psi = \\int (4x + 5y)\\,dx = 2x^2 + 5xy + g(y)$.",
+    fullSolution: `**1. EXACTNESS VERIFICATION:**
+$$M(x,y) = 4x + 5y \\implies M_y = 5$$
+$$N(x,y) = 5x + 6y \\implies N_x = 5$$
+Since $M_y = N_x = 5$, the equation is exact.
+
+**2. INTEGRATE M WITH RESPECT TO x:**
+$$\\Psi(x,y) = \\int (4x + 5y)\\,dx + g(y) = 2x^2 + 5xy + g(y)$$
+
+**3. DIFFERENTIATE WITH RESPECT TO y AND MATCH N:**
+$$\\frac{\\partial \\Psi}{\\partial y} = 5x + g'(y)$$
+Set equal to $N(x,y) = 5x + 6y$:
+$$5x + g'(y) = 5x + 6y \\implies g'(y) = 6y$$
+$$g(y) = \\int 6y\\,dy = 3y^2$$
+
+**4. ASSEMBLE GENERAL SOLUTION:**
+$$\\Psi(x,y) = 2x^2 + 5xy + 3y^2 = C$$`,
+    finalAnswer: "2x^2 + 5xy + 3y^2 = C"
   },
   {
-    id: "q7",
-    section: "Part A - Concepts",
+    id: "de-pq-7",
+    section: "Part B - Application",
     number: 7,
-    topicId: "coulomb-law",
-    topicTitle: "Electric Charge & Coulomb's Law",
+    topicId: "exactness-test",
+    topicTitle: "Exactness Test",
     difficulty: "Application",
-    question: "In electrostatic spray painting, why are charged paint droplets attracted to the workpiece?",
+    question: "Test the differential equation $$(3xy + x)\\,dx + \\left(\\frac{3}{2}x^2 + x + 4y\\right)dy = 0$$ for exactness.",
     options: [
-      "The paint is heated.",
-      "The grounded workpiece is electrically attracted to the charged droplets.",
-      "The droplets become lighter.",
-      "The paint resonates acoustically."
+      "Not exact, because $M_y = 3x$ while $N_x = 3x + 1$",
+      "Exact, because $M_y = N_x = 3x$",
+      "Exact, because $M_x = N_y = 3y + 1$",
+      "Not exact, because $M_y = 3y$ and $N_x = 3x$"
     ],
-    correctIndex: 1,
-    hint: "Charged droplets induce image charges in the grounded conductive workpiece.",
-    firstStep: "Electrostatic attraction acts between opposite or induced charges.",
-    fullSolution: `**ENGINEERING APPLICATION:**
-In electrostatic coating, paint droplets are given an electrostatic charge (typically negative). The metal workpiece is grounded (or held at opposite polarity). The electric field creates strong electrostatic attraction ($F = qE$) that pulls droplets directly to the workpiece, wrapping around edges and minimizing overspray.`,
-    finalAnswer: "The grounded workpiece is electrically attracted to the charged droplets."
-  },
+    correctIndex: 0,
+    hint: "Carefully differentiate $M = 3xy + x$ with respect to $y$, and differentiate $N = \\frac{3}{2}x^2 + x + 4y$ with respect to $x$.",
+    firstStep: "Compute $M_y = \\frac{\\partial}{\\partial y}(3xy + x) = 3x$.",
+    fullSolution: `**1. IDENTIFY COEFFICIENTS:**
+$$M(x,y) = 3xy + x, \\quad N(x,y) = \\frac{3}{2}x^2 + x + 4y$$
 
-  // PART B - CALCULATIONS
+**2. COMPUTE PARTIAL DERIVATIVES:**
+* $\\frac{\\partial M}{\\partial y} = 3x + 0 = 3x$
+* $\\frac{\\partial N}{\\partial x} = \\frac{3}{2}(2x) + 1 + 0 = 3x + 1$
+
+**3. COMPARISON:**
+$$M_y = 3x \\neq 3x + 1 = N_x$$
+The discrepancy is $N_x - M_y = 1 \\neq 0$. Therefore, the differential equation is **not exact**.`,
+    finalAnswer: "Not exact, because M_y = 3x while N_x = 3x + 1"
+  },
   {
-    id: "q8",
-    section: "Part B - Calculations",
+    id: "de-pq-8",
+    section: "Part B - Application",
     number: 8,
-    topicId: "coulomb-law",
-    topicTitle: "Electric Charge & Coulomb's Law",
-    difficulty: "Foundation",
-    question: "Two charges +5.0 μC and +2.0 μC are separated by 0.30 m. Find the magnitude of the electrostatic force.",
+    topicId: "homogeneous-first-order-des",
+    topicTitle: "Homogeneous First-Order Differential Equations",
+    difficulty: "Application",
+    question: "Solve the homogeneous differential equation $$(y - 2x)\\,dx + x\\,dy = 0.$$",
     options: [
-      "0.50 N",
-      "1.00 N",
-      "1.50 N",
-      "2.00 N"
+      "\\(y = x - \\frac{C}{x}\\)",
+      "\\(y = 2x + C x^2\\)",
+      "\\(y = x^2 - \\frac{C}{x}\\)",
+      "\\(y = \\frac{x}{2} + C x\\)"
     ],
-    correctIndex: 1,
-    hint: "Convert μC to Coulombs (10⁻⁶ C) and use F = k|q₁q₂|/r².",
-    firstStep: "F = (8.99 × 10⁹)(5.0 × 10⁻⁶)(2.0 × 10⁻⁶) / (0.30)².",
-    fullSolution: `**GIVEN:**
-* $q_1 = +5.0\\;\\mu\\text{C} = 5.0 \\times 10^{-6}\\text{ C}$
-* $q_2 = +2.0\\;\\mu\\text{C} = 2.0 \\times 10^{-6}\\text{ C}$
-* $r = 0.30\\text{ m}$
-* $k = 8.99 \\times 10^9\\text{ N}\\cdot\\text{m}^2/\\text{C}^2$
+    correctIndex: 0,
+    hint: "Express as $\\frac{dy}{dx} = 2 - \\frac{y}{x}$, substitute $y = vx$ and $\\frac{dy}{dx} = v + x\\frac{dv}{dx}$, then separate variables.",
+    firstStep: "Rearrange to $\\frac{dy}{dx} = \\frac{2x - y}{x} = 2 - \\frac{y}{x}$. Let $y = vx$.",
+    fullSolution: `**1. REWRITE IN RATIO FORM:**
+$$x\\,dy = (2x - y)\\,dx \\implies \\frac{dy}{dx} = 2 - \\frac{y}{x}$$
 
-**REQUIRED:**
-* Electrostatic force magnitude $F$
+**2. APPLY SUBSTITUTION $y = vx$:**
+$$\\frac{dy}{dx} = v + x\\frac{dv}{dx}$$
+$$v + x\\frac{dv}{dx} = 2 - v \\implies x\\frac{dv}{dx} = 2 - 2v = 2(1 - v)$$
 
-**FORMULA:**
-$$F = \\frac{k|q_1 q_2|}{r^2}$$
+**3. SEPARATE AND INTEGRATE:**
+$$\\frac{1}{1 - v}\\,dv = \\frac{2}{x}\\,dx$$
+$$-\\ln|1 - v| = 2\\ln|x| + C_1 = \\ln(x^2) + C_1$$
+$$\\ln|1 - v| = -\\ln(x^2) - C_1 \\implies 1 - v = \\frac{C}{x^2}$$
 
-**SUBSTITUTION & COMPUTATION:**
-$$F = \\frac{(8.99 \\times 10^9)(5.0 \\times 10^{-6})(2.0 \\times 10^{-6})}{(0.30)^2} = \\frac{0.0899}{0.0900} = 0.9989\\text{ N} \\approx 1.00\\text{ N}$$
-
-**ANSWER:**
-$$F = 1.00\\text{ N} \\text{ (Repulsive)}$$`,
-    finalAnswer: "1.00 N"
+**4. BACK-SUBSTITUTE $v = \\frac{y}{x}$:**
+$$1 - \\frac{y}{x} = \\frac{C}{x^2} \\implies \\frac{y}{x} = 1 - \\frac{C}{x^2}$$
+$$y = x - \\frac{C}{x}$$`,
+    finalAnswer: "y = x - \\frac{C}{x}"
   },
   {
-    id: "q9",
-    section: "Part B - Calculations",
+    id: "de-pq-9",
+    section: "Part B - Application",
     number: 9,
-    topicId: "electric-field",
-    topicTitle: "Electric Field & Superposition",
-    difficulty: "Foundation",
-    question: "A point charge of -7.0 μC produces what electric field magnitude at a distance of 0.50 m?",
+    topicId: "initial-value-problems",
+    topicTitle: "Initial-Value Problems (IVPs)",
+    difficulty: "Application",
+    question: "Solve the initial-value problem $$\\frac{dy}{dx} = 4xy, \\quad y(1) = 3.$$",
     options: [
-      "1.26 × 10⁵ N/C",
-      "2.52 × 10⁵ N/C",
-      "3.15 × 10⁵ N/C",
-      "5.04 × 10⁵ N/C"
+      "\\(y = 3 e^{2x^2 - 2}\\)",
+      "\\(y = 3 e^{4x^2 - 4}\\)",
+      "\\(y = e^{2x^2} + 2\\)",
+      "\\(y = 3 e^{2x^2}\\)"
     ],
-    correctIndex: 1,
-    hint: "Use E = k|Q|/r² with |Q| = 7.0 × 10⁻⁶ C.",
-    firstStep: "E = (8.99 × 10⁹)(7.0 × 10⁻⁶) / (0.50)².",
-    fullSolution: `**GIVEN:**
-* $Q = -7.0\\;\\mu\\text{C} = -7.0 \\times 10^{-6}\\text{ C}$
-* $r = 0.50\\text{ m}$
-* $k = 8.99 \\times 10^9\\text{ N}\\cdot\\text{m}^2/\\text{C}^2$
+    correctIndex: 0,
+    hint: "Separate variables to find the general solution $y = C e^{2x^2}$, then apply the initial condition $y(1) = 3$ to solve for $C$.",
+    firstStep: "Separate: $\\frac{1}{y}\\,dy = 4x\\,dx \\implies \\ln|y| = 2x^2 + C_1$.",
+    fullSolution: `**1. SEPARATE AND INTEGRATE:**
+$$\\int \\frac{1}{y}\\,dy = \\int 4x\\,dx$$
+$$\\ln|y| = 2x^2 + C_1 \\implies y = C e^{2x^2}$$
 
-**FORMULA:**
-$$E = \\frac{k|Q|}{r^2}$$
+**2. APPLY INITIAL CONDITION $y(1) = 3$:**
+$$3 = C e^{2(1)^2} = C e^2$$
+$$C = 3 e^{-2}$$
 
-**COMPUTATION:**
-$$E = \\frac{(8.99 \\times 10^9)(7.0 \\times 10^{-6})}{(0.50)^2} = \\frac{62930}{0.25} = 2.5172 \\times 10^5\\text{ N/C} \\approx 2.52 \\times 10^5\\text{ N/C}$$
-
-**ANSWER:**
-$$E = 2.52 \\times 10^5\\text{ N/C}$$`,
-    finalAnswer: "2.52 × 10⁵ N/C"
+**3. PARTICULAR SOLUTION:**
+$$y = (3 e^{-2}) e^{2x^2} = 3 e^{2x^2 - 2}$$`,
+    finalAnswer: "y = 3 e^{2x^2 - 2}"
   },
   {
-    id: "q10",
-    section: "Part B - Calculations",
+    id: "de-pq-10",
+    section: "Part B - Application",
     number: 10,
-    topicId: "force-and-acceleration",
-    topicTitle: "Force & Acceleration in an Electric Field",
-    difficulty: "Foundation",
-    question: "A charge q = -3.0 nC is placed in a uniform electric field of magnitude 4.0 × 10⁴ N/C. Find the magnitude of the force.",
+    topicId: "orthogonal-trajectories",
+    topicTitle: "Orthogonal Trajectories",
+    difficulty: "Application",
+    question: "Find the orthogonal trajectories of the family of cubic curves $$y = c x^3.$$",
     options: [
-      "1.2 × 10⁻³ N",
-      "1.2 × 10⁻⁴ N",
-      "7.5 × 10⁻⁴ N",
-      "4.0 × 10⁻³ N"
+      "\\(x^2 + 3y^2 = C\\)",
+      "\\(3x^2 + y^2 = C\\)",
+      "\\(x^3 + 3y^3 = C\\)",
+      "\\(x^2 - 3y^2 = C\\)"
     ],
-    correctIndex: 1,
-    hint: "Force magnitude is F = |q|E. Remember 1 nC = 10⁻⁹ C.",
-    firstStep: "F = (3.0 × 10⁻⁹ C)(4.0 × 10⁴ N/C).",
-    fullSolution: `**GIVEN:**
-* $q = -3.0\\text{ nC} = -3.0 \\times 10^{-9}\\text{ C}$
-* $E = 4.0 \\times 10^4\\text{ N/C}$
+    correctIndex: 0,
+    hint: "Differentiate $y = cx^3$ with respect to $x$, eliminate the parameter $c$, set $m_\\perp = -1/m$, and integrate the resulting separable DE.",
+    firstStep: "Differentiate: $\\frac{dy}{dx} = 3cx^2$. Since $c = y/x^3$, slope $m = 3(y/x^3)x^2 = \\frac{3y}{x}$.",
+    fullSolution: `**1. FIND ORIGINAL FAMILY SLOPE:**
+$$y = cx^3 \\implies \\frac{dy}{dx} = 3cx^2$$
+Eliminate parameter $c = \\frac{y}{x^3}$:
+$$\\left(\\frac{dy}{dx}\\right)_{\\text{orig}} = 3\\left(\\frac{y}{x^3}\\right)x^2 = \\frac{3y}{x}$$
 
-**FORMULA:**
-$$F = |q|E$$
+**2. APPLY ORTHOGONAL SLOPE CONDITION:**
+$$m_\\perp = -\\frac{1}{m_{\\text{orig}}} \\implies \\frac{dy}{dx} = -\\frac{x}{3y}$$
 
-**COMPUTATION:**
-$$F = (3.0 \\times 10^{-9}\\text{ C})(4.0 \\times 10^4\\text{ N/C}) = 1.20 \\times 10^{-4}\\text{ N}$$
-
-**ANSWER:**
-$$F = 1.2 \\times 10^{-4}\\text{ N}$$`,
-    finalAnswer: "1.2 × 10⁻⁴ N"
+**3. SEPARATE AND INTEGRATE:**
+$$3y\\,dy = -x\\,dx$$
+$$\\int 3y\\,dy = -\\int x\\,dx$$
+$$\\frac{3}{2}y^2 = -\\frac{1}{2}x^2 + C_1$$
+Multiply through by 2:
+$$x^2 + 3y^2 = C$$
+*(This represents a family of concentric ellipses).*`,
+    finalAnswer: "x^2 + 3y^2 = C"
   },
   {
-    id: "q11",
-    section: "Part B - Calculations",
+    id: "de-pq-11",
+    section: "Part B - Application",
     number: 11,
-    topicId: "force-and-acceleration",
-    topicTitle: "Force & Acceleration in an Electric Field",
+    topicId: "exact-trig-des",
+    topicTitle: "Exact Equations with Trigonometric Terms",
     difficulty: "Application",
-    question: "A particle has charge 2.0 × 10⁻⁹ C and mass 5.0 × 10⁻⁸ kg in a uniform field of 3.0 × 10⁴ N/C. Find its acceleration magnitude.",
+    question: "Solve the exact trigonometric differential equation $$(3x^2 + y\\cos(xy))\\,dx + (x\\cos(xy) + 2y)\\,dy = 0.$$",
     options: [
-      "1.2 × 10³ m/s²",
-      "2.4 × 10³ m/s²",
-      "3.0 × 10³ m/s²",
-      "6.0 × 10³ m/s²"
+      "\\(x^3 + \\sin(xy) + y^2 = C\\)",
+      "\\(3x^3 + \\cos(xy) + 2y^2 = C\\)",
+      "\\(x^3 - \\sin(xy) + y^2 = C\\)",
+      "\\(x^3 + xy\\cos(xy) + y^2 = C\\)"
     ],
     correctIndex: 0,
-    hint: "Combine F = qE and F = ma: a = qE/m.",
-    firstStep: "a = (2.0 × 10⁻⁹ × 3.0 × 10⁴) / (5.0 × 10⁻⁸).",
-    fullSolution: `**GIVEN:**
-* $q = 2.0 \\times 10^{-9}\\text{ C}$
-* $m = 5.0 \\times 10^{-8}\\text{ kg}$
-* $E = 3.0 \\times 10^4\\text{ N/C}$
+    hint: "Recall the chain rule: $\\frac{\\partial}{\\partial x}\\sin(xy) = y\\cos(xy)$ and $\\frac{\\partial}{\\partial y}\\sin(xy) = x\\cos(xy)$.",
+    firstStep: "Integrate $M$ with respect to $x$: $\\Psi = \\int (3x^2 + y\\cos(xy))\\,dx = x^3 + \\sin(xy) + g(y)$.",
+    fullSolution: `**1. CHECK EXACTNESS:**
+$$M_y = \\frac{\\partial}{\\partial y}(3x^2 + y\\cos(xy)) = \\cos(xy) - xy\\sin(xy)$$
+$$N_x = \\frac{\\partial}{\\partial x}(x\\cos(xy) + 2y) = \\cos(xy) - xy\\sin(xy)$$
+Exactness holds: $M_y = N_x$.
 
-**FORMULA:**
-$$a = \\frac{F}{m} = \\frac{qE}{m}$$
+**2. INTEGRATE M WITH RESPECT TO x:**
+$$\\Psi(x,y) = \\int (3x^2 + y\\cos(xy))\\,dx = x^3 + \\sin(xy) + g(y)$$
 
-**COMPUTATION:**
-$$a = \\frac{(2.0 \\times 10^{-9})(3.0 \\times 10^4)}{5.0 \\times 10^{-8}} = \\frac{6.0 \\times 10^{-5}}{5.0 \\times 10^{-8}} = 1.20 \\times 10^3\\text{ m/s}^2$$
+**3. DIFFERENTIATE WITH RESPECT TO y AND MATCH N:**
+$$\\frac{\\partial \\Psi}{\\partial y} = x\\cos(xy) + g'(y) = x\\cos(xy) + 2y$$
+$$g'(y) = 2y \\implies g(y) = y^2$$
 
-**ANSWER:**
-$$a = 1.2 \\times 10^3\\text{ m/s}^2$$`,
-    finalAnswer: "1.2 × 10³ m/s²"
+**4. GENERAL SOLUTION:**
+$$x^3 + \\sin(xy) + y^2 = C$$`,
+    finalAnswer: "x^3 + \\sin(xy) + y^2 = C"
   },
   {
-    id: "q12",
-    section: "Part B - Calculations",
+    id: "de-pq-12",
+    section: "Part B - Application",
     number: 12,
-    topicId: "electric-potential",
-    topicTitle: "Electric Potential",
-    difficulty: "Foundation",
-    question: "A charge +9.0 nC is 0.45 m from a point. Find the electric potential there.",
+    topicId: "exact-trig-des",
+    topicTitle: "Exact Equations with Trigonometric Terms",
+    difficulty: "Application",
+    question: "Solve the differential equation $$2xy\\,dx + (x^2 + \\sec^2 y)\\,dy = 0.$$",
     options: [
-      "90 V",
-      "120 V",
-      "180 V",
-      "240 V"
+      "\\(x^2 y + \\tan y = C\\)",
+      "\\(x^2 y - \\tan y = C\\)",
+      "\\(2x^2 y + \\sec y = C\\)",
+      "\\(x y^2 + \\tan y = C\\)"
     ],
-    correctIndex: 2,
-    hint: "Use V = kQ/r.",
-    firstStep: "V = (8.99 × 10⁹)(9.0 × 10⁻⁹) / 0.45.",
-    fullSolution: `**GIVEN:**
-* $Q = +9.0\\text{ nC} = 9.0 \\times 10^{-9}\\text{ C}$
-* $r = 0.45\\text{ m}$
-* $k = 8.99 \\times 10^9\\text{ N}\\cdot\\text{m}^2/\\text{C}^2$
+    correctIndex: 0,
+    hint: "Notice that $2xy\\,dx + x^2\\,dy = d(x^2 y)$ and $\\sec^2 y\\,dy = d(\\tan y)$.",
+    firstStep: "Check exactness: $M_y = 2x$ and $N_x = 2x$. The equation is exact.",
+    fullSolution: `**1. EXACTNESS CHECK:**
+$$M = 2xy \\implies M_y = 2x$$
+$$N = x^2 + \\sec^2 y \\implies N_x = 2x$$
+Equation is exact!
 
-**FORMULA:**
-$$V = \\frac{kQ}{r}$$
+**2. INTEGRATE M WITH RESPECT TO x:**
+$$\\Psi(x,y) = \\int 2xy\\,dx = x^2 y + g(y)$$
 
-**COMPUTATION:**
-$$V = \\frac{(8.99 \\times 10^9)(9.0 \\times 10^{-9})}{0.45} = \\frac{80.91}{0.45} = 179.8\\text{ V} \\approx 180\\text{ V}$$
+**3. MATCH WITH N:**
+$$\\frac{\\partial \\Psi}{\\partial y} = x^2 + g'(y) = x^2 + \\sec^2 y \\implies g'(y) = \\sec^2 y$$
+$$g(y) = \\tan y$$
 
-**ANSWER:**
-$$V = 180\\text{ V}$$`,
-    finalAnswer: "180 V"
+**4. FINAL IMPLICIT SOLUTION:**
+$$x^2 y + \\tan y = C$$`,
+    finalAnswer: "x^2 y + \\tan y = C"
   },
   {
-    id: "q13",
-    section: "Part B - Calculations",
+    id: "de-pq-13",
+    section: "Part B - Application",
     number: 13,
-    topicId: "work-and-potential-energy",
-    topicTitle: "Work & Multi-Charge Potential Energy",
-    difficulty: "Foundation",
-    question: "A 5.0 nC charge moves from Va = 100 V to Vb = 40 V. Find the work done by the electric field.",
+    topicId: "integrating-factors-non-exact",
+    topicTitle: "Integrating Factors for Non-Exact Equations",
+    difficulty: "Application",
+    question: "For the differential equation $$xy\\,dx + (x^2 + y^2)\\,dy = 0,$$ determine an integrating factor $\\mu(y)$ depending only on $y$.",
     options: [
-      "1.0 × 10⁻⁷ J",
-      "2.0 × 10⁻⁷ J",
-      "3.0 × 10⁻⁷ J",
-      "4.0 × 10⁻⁷ J"
+      "\\(\\mu(y) = y\\)",
+      "\\(\\mu(y) = \\frac{1}{y}\\)",
+      "\\(\\mu(y) = y^2\\)",
+      "\\(\\mu(y) = e^y\\)"
     ],
-    correctIndex: 2,
-    hint: "Work done by the electric field is W = q(Va - Vb).",
-    firstStep: "Va - Vb = 100 - 40 = 60 V.",
-    fullSolution: `**GIVEN:**
-* $q = 5.0\\text{ nC} = 5.0 \\times 10^{-9}\\text{ C}$
-* $V_a = 100\\text{ V}$
-* $V_b = 40\\text{ V}$
+    correctIndex: 0,
+    hint: "Use the criterion: if $\\frac{N_x - M_y}{M} = g(y)$, then $\\mu(y) = e^{\\int g(y)\\,dy}$.",
+    firstStep: "Compute $M_y = x$ and $N_x = 2x$. Evaluate $\\frac{N_x - M_y}{M} = \\frac{2x - x}{xy} = \\frac{1}{y}$.",
+    fullSolution: `**1. TEST EXACTNESS:**
+$$M = xy \\implies M_y = x$$
+$$N = x^2 + y^2 \\implies N_x = 2x$$
+$M_y \\neq N_x$, so the equation is not exact.
 
-**FORMULA:**
-$$W_{\\text{field}} = q(V_a - V_b)$$
+**2. CHECK y-ONLY INTEGRATING FACTOR CONDITION:**
+$$\\frac{N_x - M_y}{M} = \\frac{2x - x}{xy} = \\frac{x}{xy} = \\frac{1}{y} = g(y)$$
+This ratio depends exclusively on $y$.
 
-**COMPUTATION:**
-$$W = (5.0 \\times 10^{-9}\\text{ C})(100\\text{ V} - 40\\text{ V}) = (5.0 \\times 10^{-9})(60) = 3.00 \\times 10^{-7}\\text{ J}$$
+**3. COMPUTE INTEGRATING FACTOR:**
+$$\\mu(y) = e^{\\int g(y)\\,dy} = e^{\\int \\frac{1}{y}\\,dy} = e^{\\ln|y|} = y$$
 
-**ANSWER:**
-$$W = 3.0 \\times 10^{-7}\\text{ J}$$`,
-    finalAnswer: "3.0 × 10⁻⁷ J"
+*(Multiplying the original equation by $y$ produces $xy^2\\,dx + (x^2 y + y^3)\\,dy = 0$, which is exact with solution $\\frac{1}{2}x^2 y^2 + \\frac{1}{4}y^4 = C$).*`,
+    finalAnswer: "\\mu(y) = y"
   },
   {
-    id: "q14",
-    section: "Part B - Calculations",
+    id: "de-pq-14",
+    section: "Part B - Application",
     number: 14,
-    topicId: "work-and-potential-energy",
-    topicTitle: "Work & Multi-Charge Potential Energy",
+    topicId: "initial-value-problems",
+    topicTitle: "Initial-Value Problems (IVPs)",
     difficulty: "Application",
-    question: "Two charges +4.0 μC and -5.0 μC are 0.80 m apart. Find their electric potential energy.",
+    question: "Solve the exact initial-value problem $$(2x + 4y)\\,dx + (4x + 6y)\\,dy = 0, \\quad y(1) = 1.$$",
     options: [
-      "-0.225 J",
-      "-0.450 J",
-      "+0.225 J",
-      "+0.450 J"
+      "\\(x^2 + 4xy + 3y^2 = 8\\)",
+      "\\(x^2 + 4xy + 3y^2 = 0\\)",
+      "\\(2x^2 + 4xy + 6y^2 = 12\\)",
+      "\\(x^2 + 2xy + 3y^2 = 6\\)"
     ],
     correctIndex: 0,
-    hint: "Use U = kq₁q₂/r with signs included.",
-    firstStep: "U = (8.99 × 10⁹)(4.0 × 10⁻⁶)(-5.0 × 10⁻⁶) / 0.80.",
-    fullSolution: `**GIVEN:**
-* $q_1 = +4.0\\;\\mu\\text{C} = 4.0 \\times 10^{-6}\\text{ C}$
-* $q_2 = -5.0\\;\\mu\\text{C} = -5.0 \\times 10^{-6}\\text{ C}$
-* $r = 0.80\\text{ m}$
+    hint: "Find the general solution potential $\\Psi(x,y) = C$, then substitute $x = 1, y = 1$ to calculate the specific numerical constant $C$.",
+    firstStep: "Check exactness: $M_y = 4, N_x = 4$. Integrate: $\\Psi(x,y) = x^2 + 4xy + 3y^2 = C$.",
+    fullSolution: `**1. EXACTNESS AND POTENTIAL INTEGRAL:**
+$$M_y = 4, \\quad N_x = 4 \\implies \\text{Exact}$$
+$$\\Psi(x,y) = \\int (2x + 4y)\\,dx = x^2 + 4xy + g(y)$$
+$$\\frac{\\partial \\Psi}{\\partial y} = 4x + g'(y) = 4x + 6y \\implies g'(y) = 6y \\implies g(y) = 3y^2$$
+$$\\Psi(x,y) = x^2 + 4xy + 3y^2 = C$$
 
-**FORMULA:**
-$$U = \\frac{k q_1 q_2}{r}$$
+**2. APPLY INITIAL VALUE (x = 1, y = 1):**
+$$1^2 + 4(1)(1) + 3(1)^2 = C$$
+$$1 + 4 + 3 = 8 \\implies C = 8$$
 
-**COMPUTATION:**
-$$U = \\frac{(8.99 \\times 10^9)(4.0 \\times 10^{-6})(-5.0 \\times 10^{-6})}{0.80} = \\frac{-0.1798}{0.80} = -0.22475\\text{ J} \\approx -0.225\\text{ J}$$
-
-**ANSWER:**
-$$U = -0.225\\text{ J}$$`,
-    finalAnswer: "-0.225 J"
+**3. PARTICULAR SOLUTION:**
+$$x^2 + 4xy + 3y^2 = 8$$`,
+    finalAnswer: "x^2 + 4xy + 3y^2 = 8"
   },
+
+  // CHALLENGE LEVEL (15 - 20)
   {
-    id: "q15",
-    section: "Part B - Calculations",
+    id: "de-pq-15",
+    section: "Part C - Challenge",
     number: 15,
-    topicId: "wave-basics",
-    topicTitle: "Wave Fundamentals",
-    difficulty: "Foundation",
-    question: "A wave has frequency 25 Hz and speed 15 m/s. Find its wavelength.",
+    topicId: "separable-des",
+    topicTitle: "Separable Differential Equations",
+    difficulty: "Challenge",
+    question: "Solve the separable initial-value problem $$\\frac{dy}{dx} = x(y + 2), \\quad y(0) = 1.$$",
     options: [
-      "0.40 m",
-      "0.60 m",
-      "1.50 m",
-      "2.50 m"
+      "\\(y = 3e^{x^2/2} - 2\\)",
+      "\\(y = e^{x^2/2}\\)",
+      "\\(y = 2e^{x^2/2} - 1\\)",
+      "\\(y = 3e^{x^2} - 2\\)"
     ],
-    correctIndex: 1,
-    hint: "Use λ = v/f.",
-    firstStep: "λ = 15 / 25.",
-    fullSolution: `**GIVEN:**
-* $f = 25\\text{ Hz}$
-* $v = 15\\text{ m/s}$
+    correctIndex: 0,
+    hint: "Separate $\\frac{dy}{y+2} = x\\,dx$, integrate to obtain $y + 2 = C e^{x^2/2}$, and apply $y(0) = 1$.",
+    firstStep: "Separate: $\\frac{1}{y+2}\\,dy = x\\,dx$. Integrate: $\\ln|y+2| = \\frac{1}{2}x^2 + C_1$.",
+    fullSolution: `**1. SEPARATE AND INTEGRATE:**
+$$\\int \\frac{1}{y + 2}\\,dy = \\int x\\,dx$$
+$$\\ln|y + 2| = \\frac{x^2}{2} + C_1$$
+$$y + 2 = C e^{x^2/2}$$
 
-**FORMULA:**
-$$\\lambda = \\frac{v}{f}$$
+**2. APPLY INITIAL CONDITION $y(0) = 1$:**
+$$1 + 2 = C e^0 \\implies C = 3$$
 
-**COMPUTATION:**
-$$\\lambda = \\frac{15\\text{ m/s}}{25\\text{ Hz}} = 0.60\\text{ m}$$
-
-**ANSWER:**
-$$\\lambda = 0.60\\text{ m}$$`,
-    finalAnswer: "0.60 m"
+**3. PARTICULAR EXPLICIT SOLUTION:**
+$$y + 2 = 3e^{x^2/2} \\implies y = 3e^{x^2/2} - 2$$`,
+    finalAnswer: "y = 3e^{x^2/2} - 2"
   },
   {
-    id: "q16",
-    section: "Part B - Calculations",
+    id: "de-pq-16",
+    section: "Part C - Challenge",
     number: 16,
-    topicId: "speed-of-sound-temp",
-    topicTitle: "Speed of Sound vs. Temperature",
-    difficulty: "Foundation",
-    question: "Estimate the speed of sound at 18°C using v ≈ 331 + 0.6T.",
+    topicId: "linear-first-order-des",
+    topicTitle: "Linear First-Order Differential Equations",
+    difficulty: "Challenge",
+    question: "Solve the linear initial-value problem $$\\frac{dy}{dx} + 4y = 8x, \\quad y(0) = 2.$$",
     options: [
-      "338.8 m/s",
-      "341.8 m/s",
-      "349.0 m/s",
-      "356.8 m/s"
+      "\\(y = 2x - \\frac{1}{2} + \\frac{5}{2}e^{-4x}\\)",
+      "\\(y = 2x + \\frac{1}{2} + \\frac{3}{2}e^{-4x}\\)",
+      "\\(y = 4x - 1 + 3e^{-4x}\\)",
+      "\\(y = 2x - \\frac{1}{2} + 2e^{-4x}\\)"
     ],
-    correctIndex: 1,
-    hint: "Substitute T = 18 directly into v ≈ 331 + 0.6T.",
-    firstStep: "0.6 × 18 = 10.8.",
-    fullSolution: `**GIVEN:**
-* $T = 18^\\circ\\text{C}$
+    correctIndex: 0,
+    hint: "Find integrating factor $\\mu(x) = e^{4x}$, integrate $8x e^{4x}$ by parts to find the general solution, then substitute $x=0, y=2$.",
+    firstStep: "$\\mu(x) = e^{\\int 4\\,dx} = e^{4x}$. Multiply through: $\\frac{d}{dx}[e^{4x} y] = 8x e^{4x}$.",
+    fullSolution: `**1. INTEGRATING FACTOR & PRODUCT INTEGRATION:**
+$$\\mu(x) = e^{4x}$$
+$$e^{4x} y = \\int 8x e^{4x}\\,dx + C$$
+Using integration by parts:
+$$\\int 8x e^{4x}\\,dx = 8x\\left(\\frac{1}{4}e^{4x}\\right) - \\int 8\\left(\\frac{1}{4}e^{4x}\\right)dx = 2x e^{4x} - \\frac{1}{2}e^{4x}$$
 
-**FORMULA:**
-$$v \\approx 331 + 0.6T$$
+**2. GENERAL SOLUTION:**
+$$e^{4x} y = 2x e^{4x} - \\frac{1}{2}e^{4x} + C$$
+$$y = 2x - \\frac{1}{2} + C e^{-4x}$$
 
-**COMPUTATION:**
-$$v = 331 + 0.6(18) = 331 + 10.8 = 341.8\\text{ m/s}$$
+**3. APPLY INITIAL CONDITION $y(0) = 2$:**
+$$2 = 2(0) - \\frac{1}{2} + C e^0 = -\\frac{1}{2} + C$$
+$$C = 2 + \\frac{1}{2} = \\frac{5}{2}$$
 
-**ANSWER:**
-$$v = 341.8\\text{ m/s}$$`,
-    finalAnswer: "341.8 m/s"
+**4. PARTICULAR SOLUTION:**
+$$y = 2x - \\frac{1}{2} + \\frac{5}{2}e^{-4x}$$`,
+    finalAnswer: "y = 2x - \\frac{1}{2} + \\frac{5}{2}e^{-4x}"
   },
   {
-    id: "q17",
-    section: "Part B - Calculations",
+    id: "de-pq-17",
+    section: "Part C - Challenge",
     number: 17,
-    topicId: "sound-intensity-decibels",
-    topicTitle: "Sound Intensity & Decibels",
-    difficulty: "Foundation",
-    question: "A sound intensity is 1.0 × 10⁻⁷ W/m². Determine the intensity level.",
+    topicId: "homogeneous-first-order-des",
+    topicTitle: "Homogeneous First-Order Differential Equations",
+    difficulty: "Challenge",
+    question: "Solve the homogeneous differential equation $$(x + 2y)\\,dx - x\\,dy = 0.$$",
     options: [
-      "40 dB",
-      "50 dB",
-      "60 dB",
-      "70 dB"
+      "\\(x + y = C x^2\\)",
+      "\\(y - x = C x^2\\)",
+      "\\(x^2 + 2xy = C\\)",
+      "\\(y = C x^2 - 2x\\)"
     ],
-    correctIndex: 1,
-    hint: "β = 10 log10(I / I₀) where I₀ = 1.0 × 10⁻¹² W/m².",
-    firstStep: "I / I₀ = 10⁻⁷ / 10⁻¹² = 10⁵.",
-    fullSolution: `**GIVEN:**
-* $I = 1.0 \\times 10^{-7}\\text{ W/m}^2$
-* $I_0 = 1.0 \\times 10^{-12}\\text{ W/m}^2$
+    correctIndex: 0,
+    hint: "Rewrite as $\\frac{dy}{dx} = 1 + 2\\frac{y}{x}$. Substitute $y = vx$ and separate variables.",
+    firstStep: "$\\frac{dy}{dx} = \\frac{x + 2y}{x} = 1 + 2\\left(\\frac{y}{x}\\right)$. Let $y = vx$, so $v + x v' = 1 + 2v$.",
+    fullSolution: `**1. HOMOGENEOUS FORM & SUBSTITUTION:**
+$$\\frac{dy}{dx} = 1 + 2\\left(\\frac{y}{x}\\right)$$
+Let $y = vx \\implies \\frac{dy}{dx} = v + x\\frac{dv}{dx}$:
+$$v + x\\frac{dv}{dx} = 1 + 2v$$
+$$x\\frac{dv}{dx} = 1 + v$$
 
-**FORMULA:**
-$$\\beta = 10 \\log_{10}\\left(\\frac{I}{I_0}\\right)$$
+**2. SEPARATE AND INTEGRATE:**
+$$\\frac{1}{1 + v}\\,dv = \\frac{1}{x}\\,dx$$
+$$\\ln|1 + v| = \\ln|x| + \\ln|C| = \\ln|C x|$$
+$$1 + v = C x$$
 
-**COMPUTATION:**
-$$\\beta = 10 \\log_{10}\\left(\\frac{1.0 \\times 10^{-7}}{1.0 \\times 10^{-12}}\\right) = 10 \\log_{10}(10^5) = 10 \\times 5 = 50\\text{ dB}$$
-
-**ANSWER:**
-$$\\beta = 50\\text{ dB}$$`,
-    finalAnswer: "50 dB"
+**3. BACK-SUBSTITUTE $v = \\frac{y}{x}$:**
+$$1 + \\frac{y}{x} = C x$$
+Multiply through by $x$:
+$$x + y = C x^2$$`,
+    finalAnswer: "x + y = C x^2"
   },
   {
-    id: "q18",
-    section: "Part B - Calculations",
+    id: "de-pq-18",
+    section: "Part C - Challenge",
     number: 18,
-    topicId: "doppler-effect",
-    topicTitle: "The Doppler Effect",
-    difficulty: "Application",
-    question: "A source emits 500 Hz while moving toward a stationary observer at 24 m/s. If the speed of sound is 340 m/s, find the observed frequency.",
+    topicId: "orthogonal-trajectories",
+    topicTitle: "Orthogonal Trajectories",
+    difficulty: "Challenge",
+    question: "Find the orthogonal trajectories of the family of curves $$y = c x^{-2}.$$",
     options: [
-      "462 Hz",
-      "500 Hz",
-      "538 Hz",
-      "575 Hz"
+      "\\(x^2 - 2y^2 = C\\)",
+      "\\(x^2 + 2y^2 = C\\)",
+      "\\(2x^2 - y^2 = C\\)",
+      "\\(x^2 + y^2 = C\\)"
     ],
-    correctIndex: 2,
-    hint: "Source approaches stationary observer: f' = f [v / (v - vs)].",
-    firstStep: "Denominator is 340 - 24 = 316 m/s.",
-    fullSolution: `**GIVEN:**
-* $f = 500\\text{ Hz}$
-* $v = 340\\text{ m/s}$
-* $v_s = 24\\text{ m/s}$ (moving toward)
-* $v_o = 0\\text{ m/s}$
+    correctIndex: 0,
+    hint: "Differentiate $y = c x^{-2}$, eliminate $c = y x^2$, take negative reciprocal $m_\\perp = -1/m$, and integrate.",
+    firstStep: "$\\frac{dy}{dx} = -2c x^{-3} = -2(y x^2) x^{-3} = -\\frac{2y}{x}$.",
+    fullSolution: `**1. FIND ORIGINAL FAMILY SLOPE:**
+$$y = c x^{-2} \\implies \\frac{dy}{dx} = -2c x^{-3}$$
+Eliminate parameter $c = y x^2$:
+$$m_{\\text{orig}} = -2(y x^2)x^{-3} = -\\frac{2y}{x}$$
 
-**FORMULA:**
-$$f' = f \\left(\\frac{v}{v - v_s}\\right)$$
+**2. ORTHOGONAL SLOPE CONDITION:**
+$$m_\\perp = -\\frac{1}{m_{\\text{orig}}} = -\\frac{1}{-2y/x} = \\frac{x}{2y}$$
+$$\\frac{dy}{dx} = \\frac{x}{2y}$$
 
-**COMPUTATION:**
-$$f' = 500 \\left(\\frac{340}{340 - 24}\\right) = 500 \\left(\\frac{340}{316}\\right) = 500 \\times 1.07595 = 537.97\\text{ Hz} \\approx 538\\text{ Hz}$$
-
-**ANSWER:**
-$$f' = 538\\text{ Hz}$$`,
-    finalAnswer: "538 Hz"
+**3. SEPARATE AND INTEGRATE:**
+$$2y\\,dy = x\\,dx$$
+$$\\int 2y\\,dy = \\int x\\,dx$$
+$$y^2 = \\frac{1}{2}x^2 + C_1$$
+Multiply through by 2 and rearrange:
+$$2y^2 - x^2 = C' \\iff x^2 - 2y^2 = C$$
+*(This defines a family of orthogonal hyperbolas).*`,
+    finalAnswer: "x^2 - 2y^2 = C"
   },
   {
-    id: "q19",
-    section: "Part B - Calculations",
+    id: "de-pq-19",
+    section: "Part C - Challenge",
     number: 19,
-    topicId: "sound-intensity-decibels",
-    topicTitle: "Sound Intensity & Decibels",
-    difficulty: "Application",
-    question: "An isotropic source produces 0.36 W/m² at 2 m. What is the intensity at 8 m?",
+    topicId: "integrating-factors-non-exact",
+    topicTitle: "Integrating Factors for Non-Exact Equations",
+    difficulty: "Challenge",
+    question: "For the differential equation $$(2y + x)\\,dx + 2x\\,dy = 0,$$ test exactness and identify the correct solution behavior.",
     options: [
-      "0.18 W/m²",
-      "0.09 W/m²",
-      "0.045 W/m²",
-      "0.0225 W/m²"
+      "Already exact ($M_y = N_x = 2$); no integrating factor needed; solution is $2xy + \\frac{1}{2}x^2 = C$",
+      "Not exact ($M_y \\neq N_x$); integrating factor is $\\mu(x) = x^2$",
+      "Not exact; integrating factor is $\\mu(y) = e^{2y}$",
+      "Already exact; solution is $x^2 + y^2 = C$"
     ],
-    correctIndex: 3,
-    hint: "Use inverse-square ratio: I₂ = I₁ (r₁ / r₂)². Here distance is multiplied by 4.",
-    firstStep: "(2 / 8)² = (1 / 4)² = 1 / 16.",
-    fullSolution: `**GIVEN:**
-* $I_1 = 0.36\\text{ W/m}^2$
-* $r_1 = 2\\text{ m}$
-* $r_2 = 8\\text{ m}$
+    correctIndex: 0,
+    hint: "Always calculate $M_y$ and $N_x$ first before attempting an integrating factor formula!",
+    firstStep: "Compute $M_y = \\frac{\\partial}{\\partial y}(2y + x) = 2$ and $N_x = \\frac{\\partial}{\\partial x}(2x) = 2$.",
+    fullSolution: `**1. EXACTNESS TEST:**
+$$M(x,y) = 2y + x \\implies \\frac{\\partial M}{\\partial y} = 2$$
+$$N(x,y) = 2x \\implies \\frac{\\partial N}{\\partial x} = 2$$
+$$M_y = N_x = 2$$
+The equation is **already exact**! No integrating factor is required.
 
-**FORMULA:**
-$$I_2 = I_1 \\left(\\frac{r_1}{r_2}\\right)^2$$
+**2. INTEGRATE FOR POTENTIAL FUNCTION:**
+$$\\Psi(x,y) = \\int (2y + x)\\,dx = 2xy + \\frac{1}{2}x^2 + g(y)$$
+$$\\frac{\\partial \\Psi}{\\partial y} = 2x + g'(y) = 2x \\implies g'(y) = 0 \\implies g(y) = 0$$
 
-**COMPUTATION:**
-$$I_2 = 0.36 \\left(\\frac{2}{8}\\right)^2 = 0.36 \\left(\\frac{1}{4}\\right)^2 = \\frac{0.36}{16} = 0.0225\\text{ W/m}^2$$
-
-**ANSWER:**
-$$I_2 = 0.0225\\text{ W/m}^2$$`,
-    finalAnswer: "0.0225 W/m²"
+**3. GENERAL SOLUTION:**
+$$2xy + \\frac{1}{2}x^2 = C \\quad \\text{(or } 4xy + x^2 = C'\\text{)}$$`,
+    finalAnswer: "Already exact (M_y = N_x = 2); no integrating factor needed; solution is 2xy + \\frac{1}{2}x^2 = C"
   },
   {
-    id: "q20",
-    section: "Part B - Calculations",
+    id: "de-pq-20",
+    section: "Part C - Challenge",
     number: 20,
-    topicId: "closed-pipe-resonance",
-    topicTitle: "Resonance in Closed Air Columns",
-    difficulty: "Foundation",
-    question: "A closed pipe has length 0.60 m and the speed of sound is 336 m/s. Find the fundamental frequency.",
-    options: [
-      "100 Hz",
-      "140 Hz",
-      "160 Hz",
-      "280 Hz"
-    ],
-    correctIndex: 1,
-    hint: "For a tube closed at one end, f₁ = v / (4L).",
-    firstStep: "4L = 4 × 0.60 = 2.40 m.",
-    fullSolution: `**GIVEN:**
-* $L = 0.60\\text{ m}$
-* $v = 336\\text{ m/s}$
-
-**FORMULA:**
-$$f_1 = \\frac{v}{4L}$$
-
-**COMPUTATION:**
-$$f_1 = \\frac{336}{4(0.60)} = \\frac{336}{2.40} = 140\\text{ Hz}$$
-
-**ANSWER:**
-$$f_1 = 140\\text{ Hz}$$`,
-    finalAnswer: "140 Hz"
-  },
-
-  // PART C - ADVANCED APPLICATIONS
-  {
-    id: "q21",
-    section: "Part C - Advanced Applications",
-    number: 21,
-    topicId: "neutral-point",
-    topicTitle: "Electrostatic Neutral Point",
-    difficulty: "Engineering",
-    question: "Two positive charges QA = 4.0 μC and QB = 16 μC are 0.30 m apart. How far from QA is the neutral point between them?",
-    options: [
-      "0.050 m",
-      "0.100 m",
-      "0.150 m",
-      "0.200 m"
-    ],
-    correctIndex: 1,
-    hint: "Equate fields: √QA / x = √QB / (d - x).",
-    firstStep: "√4 / x = √16 / (0.30 - x) => 2 / x = 4 / (0.30 - x).",
-    fullSolution: `**GIVEN:**
-* $Q_A = 4.0\\;\\mu\\text{C}$
-* $Q_B = 16\\;\\mu\\text{C}$
-* $d = 0.30\\text{ m}$
-
-**FORMULA:**
-$$\\frac{\\sqrt{Q_A}}{x} = \\frac{\\sqrt{Q_B}}{d - x}$$
-
-**COMPUTATION:**
-$$\\frac{\\sqrt{4.0}}{x} = \\frac{\\sqrt{16}}{0.30 - x} \\implies \\frac{2}{x} = \\frac{4}{0.30 - x}$$
-$$2(0.30 - x) = 4x \\implies 0.60 - 2x = 4x \\implies 6x = 0.60 \\implies x = 0.100\\text{ m}$$
-
-**ANSWER:**
-$$x = 0.100\\text{ m}$$`,
-    finalAnswer: "0.100 m"
-  },
-  {
-    id: "q22",
-    section: "Part C - Advanced Applications",
-    number: 22,
-    topicId: "charged-spheres-equilibrium",
-    topicTitle: "Equilibrium of Suspended Charged Spheres",
-    difficulty: "Engineering",
-    question: "Two identical charged spheres are separated symmetrically by 0.08 m. Each has mass 6.0 × 10⁻⁵ kg, and each string has length 0.15 m. Estimate the charge on each sphere at equilibrium.",
-    options: [
-      "1.1 × 10⁻⁸ C",
-      "1.5 × 10⁻⁸ C",
-      "2.0 × 10⁻⁸ C",
-      "4.0 × 10⁻⁸ C"
-    ],
-    correctIndex: 0,
-    hint: "Find sin θ = (d/2)/L, θ, tan θ, Fe = mg tan θ, and Q = d√(Fe/k).",
-    firstStep: "sin θ = 0.04 / 0.15 = 0.2667, θ = 15.47°, tan θ = 0.2767.",
-    fullSolution: `**GIVEN:**
-* $d = 0.08\\text{ m}$
-* $L = 0.15\\text{ m}$
-* $m = 6.0 \\times 10^{-5}\\text{ kg}$
-* $g = 9.80\\text{ m/s}^2$
-* $k = 8.99 \\times 10^9\\text{ N}\\cdot\\text{m}^2/\\text{C}^2$
-
-**EQUILIBRIUM FORMULAS:**
-$$\\sin\\theta = \\frac{d/2}{L} = \\frac{0.04}{0.15} = 0.2667 \\implies \\theta = 15.47^\\circ$$
-$$\\tan\\theta = \\tan(15.47^\\circ) = 0.2767$$
-$$F_e = mg\\tan\\theta = (6.0 \\times 10^{-5})(9.80)(0.2767) = 1.627 \\times 10^{-4}\\text{ N}$$
-$$Q = d\\sqrt{\\frac{F_e}{k}} = 0.08\\sqrt{\\frac{1.627 \\times 10^{-4}}{8.99 \\times 10^9}} = 0.08(1.345 \\times 10^{-7}) = 1.076 \\times 10^{-8}\\text{ C} \\approx 1.1 \\times 10^{-8}\\text{ C}$$
-
-**ANSWER:**
-$$Q \\approx 1.1 \\times 10^{-8}\\text{ C}$$`,
-    finalAnswer: "1.1 × 10⁻⁸ C"
-  },
-  {
-    id: "q23",
-    section: "Part C - Advanced Applications",
-    number: 23,
-    topicId: "cgs-electrostatics",
-    topicTitle: "CGS Electrostatic System",
-    difficulty: "Foundation",
-    question: "In the CGS electrostatic system, charges of 80 statC and -40 statC are separated by 8.0 cm. What is the attraction force?",
-    options: [
-      "25 dynes",
-      "50 dynes",
-      "100 dynes",
-      "200 dynes"
-    ],
-    correctIndex: 1,
-    hint: "In CGS electrostatic units, k = 1, so F = |q₁q₂| / r² in dynes.",
-    firstStep: "F = (80 × 40) / (8.0)².",
-    fullSolution: `**GIVEN:**
-* $q_1 = 80\\text{ statC}$
-* $q_2 = -40\\text{ statC}$
-* $r = 8.0\\text{ cm}$
-* $k = 1\\text{ (CGS esu)}$
-
-**FORMULA:**
-$$F = \\frac{|q_1 q_2|}{r^2}$$
-
-**COMPUTATION:**
-$$F = \\frac{80 \\times 40}{64} = \\frac{3200}{64} = 50\\text{ dynes}$$
-
-**ANSWER:**
-$$F = 50\\text{ dynes}$$`,
-    finalAnswer: "50 dynes"
-  },
-  {
-    id: "q24",
-    section: "Part C - Advanced Applications",
-    number: 24,
-    topicId: "vector-components-efield",
-    topicTitle: "Vector Components of Electric Field",
-    difficulty: "Engineering",
-    question: "A positive charge Q = +5.0 μC is located 0.10 m to the right of point P. What is the x-component of its field at P?",
-    options: [
-      "-4.50 × 10⁶ N/C",
-      "-2.25 × 10⁶ N/C",
-      "+4.50 × 10⁶ N/C",
-      "+2.25 × 10⁶ N/C"
-    ],
-    correctIndex: 0,
-    hint: "Calculate magnitude E = k|Q|/r². Determine direction: positive charge pushes AWAY from itself.",
-    firstStep: "Since Q is to the right of P, its field at P pushes toward the left (-x direction).",
-    fullSolution: `**GIVEN:**
-* $Q = +5.0\\;\\mu\\text{C} = 5.0 \\times 10^{-6}\\text{ C}$
-* $r = 0.10\\text{ m}$ (located to the right of $P$)
-
-**FORMULA:**
-$$E = \\frac{k|Q|}{r^2}$$
-
-**COMPUTATION:**
-$$E = \\frac{(8.99 \\times 10^9)(5.0 \\times 10^{-6})}{(0.10)^2} = \\frac{44950}{0.01} = 4.495 \\times 10^6\\text{ N/C} \\approx 4.50 \\times 10^6\\text{ N/C}$$
-
-**DIRECTION:**
-The field points radially away from the positive charge. Since the charge is to the right ($+x$) of $P$, the field at $P$ points left ($-x$).
-$$E_x = -4.50 \\times 10^6\\text{ N/C}$$
-
-**ANSWER:**
-$$E_x = -4.50 \\times 10^6\\text{ N/C}$$`,
-    finalAnswer: "-4.50 × 10⁶ N/C"
-  },
-  {
-    id: "q25",
-    section: "Part C - Advanced Applications",
-    number: 25,
-    topicId: "work-and-potential-energy",
-    topicTitle: "Work & Multi-Charge Potential Energy",
-    difficulty: "Engineering",
-    question: "Three point charges are on a line: q₁ = +2 nC, q₂ = -4 nC, and q₃ = +3 nC, with r₁₂ = 0.12 m, r₂₃ = 0.18 m, and r₁₃ = 0.30 m. Find the total potential energy.",
-    options: [
-      "Approximately -1.02 × 10⁻⁶ J",
-      "Approximately -4.80 × 10⁻⁷ J",
-      "Approximately +4.80 × 10⁻⁷ J",
-      "Approximately +1.02 × 10⁻⁶ J"
-    ],
-    correctIndex: 0,
-    hint: "Sum pairwise energies: U_total = U₁₂ + U₂₃ + U₁₃.",
-    firstStep: "Compute U₁₂ = kq₁q₂/r₁₂, U₂₃ = kq₂q₃/r₂₃, U₁₃ = kq₁q₃/r₁₃.",
-    fullSolution: `**GIVEN:**
-* $q_1 = +2.0 \\times 10^{-9}\\text{ C}, \\; q_2 = -4.0 \\times 10^{-9}\\text{ C}, \\; q_3 = +3.0 \\times 10^{-9}\\text{ C}$
-* $r_{12} = 0.12\\text{ m}, \\; r_{23} = 0.18\\text{ m}, \\; r_{13} = 0.30\\text{ m}$
-
-**FORMULA:**
-$$U_{\\text{total}} = k \\left( \\frac{q_1 q_2}{r_{12}} + \\frac{q_2 q_3}{r_{23}} + \\frac{q_1 q_3}{r_{13}} \\right)$$
-
-**PAIRWISE CONTRIBUTIONS:**
-* $U_{12} = \\frac{(8.99 \\times 10^9)(2 \\times 10^{-9})(-4 \\times 10^{-9})}{0.12} = -5.993 \\times 10^{-7}\\text{ J}$
-* $U_{23} = \\frac{(8.99 \\times 10^9)(-4 \\times 10^{-9})(3 \\times 10^{-9})}{0.18} = -5.993 \\times 10^{-7}\\text{ J}$
-* $U_{13} = \\frac{(8.99 \\times 10^9)(2 \\times 10^{-9})(3 \\times 10^{-9})}{0.30} = +1.798 \\times 10^{-7}\\text{ J}$
-
-**TOTAL SUM:**
-$$U_{\\text{total}} = (-5.993 - 5.993 + 1.798) \\times 10^{-7}\\text{ J} = -1.0188 \\times 10^{-6}\\text{ J} \\approx -1.02 \\times 10^{-6}\\text{ J}$$
-
-**ANSWER:**
-$$U_{\\text{total}} \\approx -1.02 \\times 10^{-6}\\text{ J}$$`,
-    finalAnswer: "Approximately -1.02 × 10⁻⁶ J"
-  },
-  {
-    id: "q26",
-    section: "Part C - Advanced Applications",
-    number: 26,
-    topicId: "multiple-sound-sources",
-    topicTitle: "Multiple Identical Sound Sources",
-    difficulty: "Application",
-    question: "A single machine produces a level of 68 dB. Six identical independent machines operate simultaneously. What is the combined level?",
-    options: [
-      "70.8 dB",
-      "75.8 dB",
-      "78.8 dB",
-      "408 dB"
-    ],
-    correctIndex: 1,
-    hint: "Use β_total = β₁ + 10 log10(N).",
-    firstStep: "10 log10(6) ≈ 7.78 dB.",
-    fullSolution: `**GIVEN:**
-* $\\beta_1 = 68.0\\text{ dB}$
-* $N = 6$
-
-**FORMULA:**
-$$\\beta_{\\text{total}} = \\beta_1 + 10 \\log_{10}(N)$$
-
-**COMPUTATION:**
-$$\\beta_{\\text{total}} = 68.0 + 10 \\log_{10}(6) = 68.0 + 10(0.77815) = 68.0 + 7.78 = 75.78\\text{ dB} \\approx 75.8\\text{ dB}$$
-
-**ANSWER:**
-$$\\beta_{\\text{total}} \\approx 75.8\\text{ dB}$$`,
-    finalAnswer: "75.8 dB"
-  },
-  {
-    id: "q27",
-    section: "Part C - Advanced Applications",
-    number: 27,
-    topicId: "doppler-effect",
-    topicTitle: "The Doppler Effect",
-    difficulty: "Application",
-    question: "A source emits 700 Hz and travels east at 20 m/s. An observer travels east in front of the source at 10 m/s. Let the speed of sound be 340 m/s. Find the observed frequency.",
-    options: [
-      "680 Hz",
-      "700 Hz",
-      "721 Hz",
-      "742 Hz"
-    ],
-    correctIndex: 2,
-    hint: "Source moves toward observer (v - vs in denominator), observer moves away from source (v - vo in numerator).",
-    firstStep: "f' = 700 × (340 - 10) / (340 - 20) = 700 × (330 / 320).",
-    fullSolution: `**GIVEN:**
-* $f = 700\\text{ Hz}$
-* $v = 340\\text{ m/s}$
-* $v_s = 20\\text{ m/s}$ (East, toward observer)
-* $v_o = 10\\text{ m/s}$ (East, away from source)
-
-**FORMULA:**
-$$f' = f \\left(\\frac{v - v_o}{v - v_s}\\right)$$
-
-**COMPUTATION:**
-$$f' = 700 \\left(\\frac{340 - 10}{340 - 20}\\right) = 700 \\left(\\frac{330}{320}\\right) = 700(1.03125) = 721.88\\text{ Hz} \\approx 721\\text{ Hz}$$
-
-**ANSWER:**
-$$f' = 721\\text{ Hz}$$`,
-    finalAnswer: "721 Hz"
-  },
-
-  // PART D - CHALLENGE PROBLEMS
-  {
-    id: "q28",
-    section: "Part D - Challenge",
-    number: 28,
-    topicId: "coulomb-law",
-    topicTitle: "Collinear Charges Force Balance",
+    topicId: "homogeneous-first-order-des",
+    topicTitle: "Homogeneous First-Order Differential Equations",
     difficulty: "Challenge",
-    question: "Three collinear charges are placed on the x-axis: qA = +4.0 μC at x = 0, qB = -2.0 μC at x = 0.20 m, and qC = +6.0 μC at x = 0.50 m. Determine the net electrostatic force on the middle charge qB.",
+    question: "Classify and solve the differential equation $$\\frac{dy}{dx} = \\frac{x + y}{x - y}.$$",
     options: [
-      "0.60 N directed to the left (-x)",
-      "0.60 N directed to the right (+x)",
-      "3.00 N directed to the left (-x)",
-      "3.00 N directed to the right (+x)"
+      "Homogeneous DE; \\(\\arctan\\left(\\frac{y}{x}\\right) - \\frac{1}{2}\\ln\\left(1 + \\frac{y^2}{x^2}\\right) = \\ln|x| + C\\)",
+      "Exact DE; \\(x^2 + xy - y^2 = C\\)",
+      "Linear DE; \\(y = x \\tan(x) + C\\)",
+      "Separable DE; \\(\\frac{y}{x} = \\ln(x^2 + y^2) + C\\)"
     ],
     correctIndex: 0,
-    hint: "qA attracts qB to the left (-x). qC attracts qB to the right (+x). Find each force magnitude.",
-    firstStep: "rAB = 0.20 m, rBC = 0.30 m. FAB = k|qA qB|/(0.20)², FCB = k|qC qB|/(0.30)².",
-    fullSolution: `**GIVEN:**
-* $q_A = +4.0\\;\\mu\\text{C}$ at $x_A = 0$
-* $q_B = -2.0\\;\\mu\\text{C}$ at $x_B = 0.20\\text{ m}$
-* $q_C = +6.0\\;\\mu\\text{C}$ at $x_C = 0.50\\text{ m}$
-* $r_{AB} = 0.20\\text{ m}, \\quad r_{BC} = 0.30\\text{ m}$
+    hint: "Divide numerator and denominator by $x$ to reveal $\\frac{dy}{dx} = \\frac{1 + y/x}{1 - y/x}$ (Homogeneous). Then use $y = vx$.",
+    firstStep: "Classify: Homogeneous of degree 0 in $y/x$. Let $y = vx \\implies v + x v' = \\frac{1+v}{1-v}$.",
+    fullSolution: `**1. CLASSIFICATION:**
+$$\\frac{dy}{dx} = \\frac{x(1 + y/x)}{x(1 - y/x)} = \\frac{1 + y/x}{1 - y/x}$$
+Since the right-hand side is a function of the single ratio $y/x$, the equation is **homogeneous**.
 
-**FORCE FROM $q_A$ ON $q_B$:**
-Since $q_A > 0$ and $q_B < 0$, $q_A$ attracts $q_B$ to the left ($-x$):
-$$F_{AB} = \\frac{(8.99 \\times 10^9)(4.0 \\times 10^{-6})(2.0 \\times 10^{-6})}{(0.20)^2} = \\frac{0.07192}{0.040} = 1.798\\text{ N} \\quad (-\\hat{i})$$
+**2. SUBSTITUTION $y = vx$:**
+$$v + x\\frac{dv}{dx} = \\frac{1 + v}{1 - v}$$
+$$x\\frac{dv}{dx} = \\frac{1 + v}{1 - v} - v = \\frac{1 + v - v(1 - v)}{1 - v} = \\frac{1 + v^2}{1 - v}$$
 
-**FORCE FROM $q_C$ ON $q_B$:**
-Since $q_C > 0$ and $q_B < 0$, $q_C$ attracts $q_B$ to the right ($+x$):
-$$F_{CB} = \\frac{(8.99 \\times 10^9)(6.0 \\times 10^{-6})(2.0 \\times 10^{-6})}{(0.30)^2} = \\frac{0.10788}{0.090} = 1.199\\text{ N} \\quad (+\\hat{i})$$
+**3. SEPARATE AND INTEGRATE:**
+$$\\frac{1 - v}{1 + v^2}\\,dv = \\frac{1}{x}\\,dx$$
+$$\\int \\frac{1}{1 + v^2}\\,dv - \\int \\frac{v}{1 + v^2}\\,dv = \\int \\frac{1}{x}\\,dx$$
+$$\\arctan(v) - \\frac{1}{2}\\ln(1 + v^2) = \\ln|x| + C$$
 
-**NET FORCE:**
-$$F_{\\text{net}} = +1.199 - 1.798 = -0.599\\text{ N} \\approx -0.60\\text{ N}$$
+**4. BACK-SUBSTITUTE $v = \\frac{y}{x}$:**
+$$\\arctan\\left(\\frac{y}{x}\\right) - \\frac{1}{2}\\ln\\left(1 + \\frac{y^2}{x^2}\\right) = \\ln|x| + C$$
+*(Equivalent simplified form: $\\arctan(y/x) = \\frac{1}{2}\\ln(x^2 + y^2) + C$).*`,
+    finalAnswer: "Homogeneous DE; \\arctan\\left(\\frac{y}{x}\\right) - \\frac{1}{2}\\ln\\left(1 + \\frac{y^2}{x^2}\\right) = \\ln|x| + C"
+  }
+];
 
-**ANSWER:**
-$$|\\vec{F}_{\\text{net}}| = 0.60\\text{ N} \\text{ directed toward the left (in the } -x \\text{ direction)}$$`,
-    finalAnswer: "0.60 N directed to the left (-x)"
+export const MINI_QUIZ = [
+  {
+    number: 1,
+    question: "What equality determines whether $M(x,y)\\,dx + N(x,y)\\,dy = 0$ is exact?",
+    answer: "$\\frac{\\partial M}{\\partial y} = \\frac{\\partial N}{\\partial x}$",
+    explanation: "Both mixed second-order partial derivatives of the potential function $\\Psi$ must be equal: $\\Psi_{xy} = \\Psi_{yx}$."
   },
   {
-    id: "q29",
-    section: "Part D - Challenge",
-    number: 29,
-    topicId: "neutral-point",
-    topicTitle: "Electrostatic Neutral Point Location",
-    difficulty: "Challenge",
-    question: "A two-charge system has QA = +8.0 μC and QB = +2.0 μC, separated by 0.40 m. Determine the location of the neutral point between them measured from the smaller charge QB.",
-    options: [
-      "0.133 m from QB",
-      "0.200 m from QB",
-      "0.267 m from QB",
-      "0.080 m from QB"
-    ],
-    correctIndex: 0,
-    hint: "Let y be the distance from QB. Then distance from QA is (0.40 - y). √QB / y = √QA / (0.40 - y).",
-    firstStep: "√2 / y = √8 / (0.40 - y) => √2 / y = 2√2 / (0.40 - y) => 1 / y = 2 / (0.40 - y).",
-    fullSolution: `**GIVEN:**
-* $Q_A = +8.0\\;\\mu\\text{C}$
-* $Q_B = +2.0\\;\\mu\\text{C}$
-* $d = 0.40\\text{ m}$
-
-**EQUATING FIELD MAGNITUDES:**
-$$\\frac{\\sqrt{Q_B}}{y} = \\frac{\\sqrt{Q_A}}{d - y}$$
-where $y$ is measured from $Q_B$.
-$$\\frac{\\sqrt{2.0}}{y} = \\frac{\\sqrt{8.0}}{0.40 - y} = \\frac{2\\sqrt{2.0}}{0.40 - y} \\implies \\frac{1}{y} = \\frac{2}{0.40 - y}$$
-$$0.40 - y = 2y \\implies 3y = 0.40 \\implies y = \\frac{0.40}{3} \\approx 0.133\\text{ m}$$
-
-**ANSWER:**
-$$y \\approx 0.133\\text{ m} \\text{ from } Q_B \\text{ (or } 0.267\\text{ m from } Q_A\\text{)}$$`,
-    finalAnswer: "0.133 m from QB"
+    number: 2,
+    question: "What is the integrating factor for the standard linear DE $y' + P(x)y = Q(x)$?",
+    answer: "$\\mu(x) = e^{\\int P(x)\\,dx}$",
+    explanation: "Multiplying by $\\mu(x)$ collapses the left side into the product rule derivative $\\frac{d}{dx}[\\mu(x) y]$."
   },
   {
-    id: "q30",
-    section: "Part D - Challenge",
-    number: 30,
-    topicId: "doppler-effect",
-    topicTitle: "Train Whistle Doppler Pursuit",
-    difficulty: "Challenge",
-    question: "A train whistle emits 450 Hz while the train moves east at 16 m/s. A car ahead moves east at 10 m/s. If the speed of sound is 343 m/s, determine the frequency heard by the driver.",
-    options: [
-      "442 Hz",
-      "450 Hz",
-      "458 Hz",
-      "466 Hz"
-    ],
-    correctIndex: 2,
-    hint: "Same direction motion: f' = f [(v - vo) / (v - vs)].",
-    firstStep: "f' = 450 × (343 - 10) / (343 - 16) = 450 × (333 / 327).",
-    fullSolution: `**GIVEN:**
-* $f = 450\\text{ Hz}$
-* $v = 343\\text{ m/s}$
-* $v_s = 16\\text{ m/s}$ (East, pursuing)
-* $v_o = 10\\text{ m/s}$ (East, fleeing ahead)
-
-**FORMULA:**
-$$f' = f \\left(\\frac{v - v_o}{v - v_s}\\right)$$
-
-**COMPUTATION:**
-$$f' = 450 \\left(\\frac{343 - 10}{343 - 16}\\right) = 450 \\left(\\frac{333}{327}\\right) = 450(1.0183486) = 458.26\\text{ Hz} \\approx 458\\text{ Hz}$$
-
-**ANSWER:**
-$$f' = 458\\text{ Hz}$$`,
-    finalAnswer: "458 Hz"
+    number: 3,
+    question: "What standard substitution is used to solve a homogeneous first-order DE $\\frac{dy}{dx} = F\\left(\\frac{y}{x}\\right)$?",
+    answer: "$y = vx$ (or $v = \\frac{y}{x}$)",
+    explanation: "This reduces the homogeneous equation to a separable equation in $v$ and $x$."
   },
   {
-    id: "q31",
-    section: "Part D - Challenge",
-    number: 31,
-    topicId: "vector-components-efield",
-    topicTitle: "2D Electric Field Superposition",
-    difficulty: "Challenge",
-    question: "Two positive charges Q₁ = +4.0 μC and Q₂ = +7.0 μC are placed at (-0.15 m, 0) and (+0.15 m, 0). Find the magnitude of the net electric field at (0, 0.20 m).",
-    options: [
-      "8.5 × 10⁵ N/C",
-      "1.0 × 10⁶ N/C",
-      "1.29 × 10⁶ N/C",
-      "1.58 × 10⁶ N/C"
-    ],
-    correctIndex: 2,
-    hint: "Distance to both charges is r = √(0.15² + 0.20²) = 0.25 m. Resolve into Ex and Ey.",
-    firstStep: "E₁ = 5.75 × 10⁵ N/C, E₂ = 1.01 × 10⁶ N/C. cos θ = 0.60, sin θ = 0.80.",
-    fullSolution: `**GIVEN:**
-* $Q_1 = +4.0\\;\\mu\\text{C}$ at $(-0.15, 0)\\text{ m}$
-* $Q_2 = +7.0\\;\\mu\\text{C}$ at $(+0.15, 0)\\text{ m}$
-* Observation point at $(0, 0.20)\\text{ m}$
-* Distance $r = \\sqrt{(0.15)^2 + (0.20)^2} = \\sqrt{0.0225 + 0.0400} = 0.25\\text{ m}$
-* $\\cos\\theta = 0.15 / 0.25 = 0.60, \\quad \\sin\\theta = 0.20 / 0.25 = 0.80$
-
-**FIELD MAGNITUDES:**
-$$E_1 = \\frac{kQ_1}{r^2} = \\frac{(8.99 \\times 10^9)(4.0 \\times 10^{-6})}{(0.25)^2} = 5.7536 \\times 10^5\\text{ N/C}$$
-$$E_2 = \\frac{kQ_2}{r^2} = \\frac{(8.99 \\times 10^9)(7.0 \\times 10^{-6})}{(0.25)^2} = 1.0069 \\times 10^6\\text{ N/C}$$
-
-**COMPONENTS:**
-* $E_{1x} = +E_1 \\cos\\theta = +3.452 \\times 10^5\\text{ N/C}$
-* $E_{1y} = +E_1 \\sin\\theta = +4.603 \\times 10^5\\text{ N/C}$
-* $E_{2x} = -E_2 \\cos\\theta = -6.041 \\times 10^5\\text{ N/C}$
-* $E_{2y} = +E_2 \\sin\\theta = +8.055 \\times 10^5\\text{ N/C}$
-
-**NET VECTOR:**
-$$E_{\\text{net}, x} = +3.452 \\times 10^5 - 6.041 \\times 10^5 = -2.589 \\times 10^5\\text{ N/C}$$
-$$E_{\\text{net}, y} = +4.603 \\times 10^5 + 8.055 \\times 10^5 = +1.2658 \\times 10^6\\text{ N/C}$$
-$$E_{\\text{net}} = \\sqrt{(-2.589 \\times 10^5)^2 + (1.2658 \\times 10^6)^2} \\approx 1.292 \\times 10^6\\text{ N/C}$$
-
-**ANSWER:**
-$$E_{\\text{net}} \\approx 1.29 \\times 10^6\\text{ N/C}$$`,
-    finalAnswer: "1.29 × 10⁶ N/C"
+    number: 4,
+    question: "Under the substitution $y = vx$, what does $\\frac{dy}{dx}$ become?",
+    answer: "$\\frac{dy}{dx} = v + x\\frac{dv}{dx}$",
+    explanation: "By the product rule: $\\frac{d}{dx}(v \\cdot x) = \\frac{dv}{dx}x + v\\frac{dx}{dx} = v + x\\frac{dv}{dx}$."
+  },
+  {
+    number: 5,
+    question: "What is the negative reciprocal rule used for in first-order calculus?",
+    answer: "Orthogonal trajectories ($m_\\perp = -\\frac{1}{m}$)",
+    explanation: "Two intersecting families of curves are orthogonal if and only if their tangent slopes multiply to $-1$."
+  },
+  {
+    number: 6,
+    question: "What must be done with an initial condition such as $y(x_0) = y_0$?",
+    answer: "Obtain the general solution with parameter $C$ first, then substitute $(x_0, y_0)$ to solve for $C$.",
+    explanation: "Never substitute initial conditions into derivatives or unintegrated differential expressions."
+  },
+  {
+    number: 7,
+    question: "What is the structural difference between an exact equation and a linear equation?",
+    answer: "Exactness tests $M_y = N_x$ for a potential $\\Psi=C$; linear has $y' + P(x)y = Q(x)$ solved via $\\mu(x) = e^{\\int Pdx}$.",
+    explanation: "Exact DEs are conservative vector differentials; linear DEs are degree-1 in $y$ and $y'$."
+  },
+  {
+    number: 8,
+    question: "When may a special integrating factor $\\mu(y)$ depending only on $y$ be used for non-exact equations?",
+    answer: "When $\\frac{N_x - M_y}{M}$ simplifies to a function of $y$ only ($g(y)$).",
+    explanation: "Then $\\mu(y) = e^{\\int g(y)\\,dy}$ makes the modified equation exact."
   }
 ];

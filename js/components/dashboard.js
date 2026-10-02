@@ -1,27 +1,11 @@
 /**
- * GEN 0110 / 0110L Physics 2 for Engineers - Student Progress & Mastery Tracker
+ * Differential Equations for Engineers - Student Progress & Mastery Tracker
  * LocalStorage persistence, mastery percentages by topic, and weak-area identification.
  */
 
-const STORAGE_KEY = "physics2_student_progress";
+import { TOPICS } from "../data/topics.js";
 
-const DEFAULT_TOPICS = [
-  { id: "coulomb-law", title: "Electrostatics & Coulomb's Law" },
-  { id: "electric-field", title: "Electric Field & Superposition" },
-  { id: "force-and-acceleration", title: "Force & Acceleration in Field" },
-  { id: "electric-potential", title: "Electric Potential (Scalar V)" },
-  { id: "work-and-potential-energy", title: "Work & Multi-Charge Energy" },
-  { id: "wave-basics", title: "Wave Fundamentals (v = fλ)" },
-  { id: "speed-of-sound-temp", title: "Speed of Sound vs. Temp" },
-  { id: "sound-intensity-decibels", title: "Sound Intensity & Decibels" },
-  { id: "multiple-sound-sources", title: "Multiple Identical Sound Sources" },
-  { id: "doppler-effect", title: "The Doppler Effect" },
-  { id: "closed-pipe-resonance", title: "Closed-Pipe Resonance" },
-  { id: "neutral-point", title: "Electrostatic Neutral Point" },
-  { id: "charged-spheres-equilibrium", title: "Charged Spheres Equilibrium" },
-  { id: "cgs-electrostatics", title: "CGS Electrostatic System" },
-  { id: "vector-components-efield", title: "Vector Components of Field" }
-];
+const STORAGE_KEY = "de_student_progress";
 
 export const DASHBOARD = {
   data: null,
@@ -49,13 +33,13 @@ export const DASHBOARD = {
         topics: {},
         history: []
       };
-      DEFAULT_TOPICS.forEach(t => {
+      TOPICS.forEach(t => {
         this.data.topics[t.id] = { attempted: 0, correct: 0 };
       });
     }
 
-    // Ensure all topics exist in map
-    DEFAULT_TOPICS.forEach(t => {
+    // Ensure all current topics exist in map
+    TOPICS.forEach(t => {
       if (!this.data.topics[t.id]) {
         this.data.topics[t.id] = { attempted: 0, correct: 0 };
       }
@@ -104,7 +88,7 @@ export const DASHBOARD = {
       topics: {},
       history: []
     };
-    DEFAULT_TOPICS.forEach(t => {
+    TOPICS.forEach(t => {
       this.data.topics[t.id] = { attempted: 0, correct: 0 };
     });
     this.save();
@@ -120,9 +104,9 @@ export const DASHBOARD = {
       : 0;
 
     // Detect weak topics: attempted > 0 and pct < 70%, or attempted == 0
-    const weakTopics = DEFAULT_TOPICS.filter(t => {
+    const weakTopics = TOPICS.filter(t => {
       const stat = this.data.topics[t.id];
-      if (!stat || stat.attempted === 0) return true; // not yet practiced
+      if (!stat || stat.attempted === 0) return true;
       return (stat.correct / stat.attempted) < 0.70;
     });
 
@@ -151,59 +135,33 @@ export const DASHBOARD = {
           </div>
         </div>
 
-        <!-- Weak areas callout -->
-        ${weakTopics.length > 0 ? `
-          <div class="dash-weak-card card">
-            <div class="card-header">
-              <h3>🎯 Recommended Review Focus</h3>
-              <span class="badge badge-warning">Target Competencies</span>
-            </div>
-            <p>Prioritize these examination topics before the Midterm:</p>
-            <div class="weak-tags-list">
-              ${weakTopics.map(t => {
-                const stat = this.data.topics[t.id];
-                const pct = stat.attempted > 0 ? Math.round((stat.correct / stat.attempted) * 100) : 0;
-                return `
-                  <div class="weak-tag-item">
-                    <div>
-                      <strong>${t.title}</strong>
-                      <span class="tag-score">${stat.attempted === 0 ? "Not yet practiced" : `${pct}% (${stat.correct}/${stat.attempted})`}</span>
-                    </div>
-                    <button class="btn btn-sm btn-primary btn-practice-weak" data-topic="${t.id}">Practice Topic</button>
-                  </div>
-                `;
-              }).join("")}
-            </div>
-          </div>
-        ` : ""}
-
         <!-- Topic Mastery Grid -->
         <div class="dash-topics-card card">
-          <div class="card-header">
-            <h3>📊 Topic Mastery Breakdown</h3>
-            <button class="btn btn-outline btn-sm" id="btn-reset-progress">Reset Progress</button>
+          <div class="card-header-row">
+            <h3>📊 Competency Mastery Breakdown</h3>
+            <button class="btn btn-outline btn-sm" id="btn-reset-stats">Reset Analytics</button>
           </div>
-          <div class="mastery-bars-list">
-            ${DEFAULT_TOPICS.map(t => {
-              const stat = this.data.topics[t.id];
+          <div class="topic-mastery-list">
+            ${TOPICS.map(t => {
+              const stat = this.data.topics[t.id] || { attempted: 0, correct: 0 };
               const pct = stat.attempted > 0 ? Math.round((stat.correct / stat.attempted) * 100) : 0;
-              let barColor = "var(--primary)";
+              let statusBadge = `<span class="badge badge-outline">Unattempted</span>`;
               if (stat.attempted > 0) {
-                if (pct >= 80) barColor = "var(--success)";
-                else if (pct < 60) barColor = "var(--danger)";
-                else barColor = "var(--warning)";
-              } else {
-                barColor = "var(--border)";
+                if (pct >= 80) statusBadge = `<span class="badge badge-success">Mastered (${pct}%)</span>`;
+                else if (pct >= 50) statusBadge = `<span class="badge badge-accent">Developing (${pct}%)</span>`;
+                else statusBadge = `<span class="badge badge-danger">Needs Practice (${pct}%)</span>`;
               }
-
               return `
-                <div class="mastery-row">
-                  <div class="mastery-header">
-                    <span class="mastery-topic-title">${t.title}</span>
-                    <span class="mastery-score">${stat.correct} / ${stat.attempted} (${pct}%)</span>
+                <div class="topic-stat-row">
+                  <div class="topic-stat-info">
+                    <strong>${t.number}. ${t.title}</strong>
+                    <span class="text-sm text-muted">${stat.correct} / ${stat.attempted} answered correctly</span>
                   </div>
-                  <div class="progress-bar-container">
-                    <div class="progress-bar-fill" style="width: ${stat.attempted === 0 ? 0 : pct}%; background-color: ${barColor};"></div>
+                  <div class="topic-stat-meta">
+                    <div class="mini-bar-track">
+                      <div class="mini-bar-fill" style="width: ${pct}%;"></div>
+                    </div>
+                    ${statusBadge}
                   </div>
                 </div>
               `;
@@ -211,25 +169,57 @@ export const DASHBOARD = {
           </div>
         </div>
 
-        <!-- Recent Activity Feed -->
-        <div class="dash-activity-card card">
-          <div class="card-header">
-            <h3>⏱️ Recent Practice Activity</h3>
+        <!-- Compact Decision Guide (Docx Section 14) -->
+        <div class="dash-guide-card card">
+          <div class="guide-header">
+            <h3>🧭 Compact Decision Guide — First-Order Strategy</h3>
+            <span class="badge badge-accent">Exam Protocol</span>
           </div>
+          <p class="text-muted">Follow this priority decision checklist to classify and solve any exam problem:</p>
+          <ol class="decision-list">
+            <li>
+              <strong>1. Is it written as $M(x,y)\\,dx + N(x,y)\\,dy = 0$?</strong>
+              <p>Check exactness immediately: compare $M_y = \\frac{\\partial M}{\\partial y}$ with $N_x = \\frac{\\partial N}{\\partial x}$. If equal, integrate for $\\Psi(x,y) = C$.</p>
+            </li>
+            <li>
+              <strong>2. Is it already linear in $y$?</strong>
+              <p>Put into canonical standard form $y' + P(x)y = Q(x)$ and apply integrating factor $\\mu(x) = e^{\\int P(x)\\,dx}$.</p>
+            </li>
+            <li>
+              <strong>3. Can the variables be separated?</strong>
+              <p>Collect all $y$-terms with $dy$ on the left and all $x$-terms with $dx$ on the right: $\\frac{1}{h(y)}\\,dy = g(x)\\,dx$.</p>
+            </li>
+            <li>
+              <strong>4. Does the right side depend solely on the ratio $y/x$?</strong>
+              <p>Use the homogeneous substitution $y = vx$, which yields $y' = v + x v'$.</p>
+            </li>
+            <li>
+              <strong>5. Is the problem an orthogonal-trajectory question?</strong>
+              <p>Find the original family slope $m = F(x,y)$ (eliminating $c$), set $m_\\perp = -1/m$, and integrate the resulting separable DE.</p>
+            </li>
+            <li>
+              <strong>6. Is the equation non-exact with an integrating factor requested?</strong>
+              <p>Test $\\frac{M_y - N_x}{N}$ for $x$-only dependence, or $\\frac{N_x - M_y}{M}$ for $y$-only dependence.</p>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Recent Solved Problems Log -->
+        <div class="dash-history-card card">
+          <h3>🕒 Recent Problem Practice Log</h3>
           ${this.data.history.length === 0 ? `
-            <p class="text-muted">No questions attempted yet. Start practicing in Quiz mode or the Topic Reviewer!</p>
+            <p class="text-muted">No problems attempted yet in this session. Jump into <strong>Practice Me</strong> or take the <strong>Quiz</strong>!</p>
           ` : `
-            <div class="activity-timeline">
-              ${this.data.history.map(item => {
-                const topic = DEFAULT_TOPICS.find(t => t.id === item.topicId);
-                const title = topic ? topic.title : item.topicId;
+            <div class="history-list">
+              ${this.data.history.map(h => {
+                const top = TOPICS.find(t => t.id === h.topicId);
+                const title = top ? top.title : h.topicId;
                 return `
-                  <div class="timeline-item">
-                    <span class="timeline-status ${item.isCorrect ? 'text-success' : 'text-danger'}">
-                      ${item.isCorrect ? '✓ Correct' : '✗ Incorrect'}
-                    </span>
-                    <span class="timeline-title">${title} (${item.difficulty})</span>
-                    <span class="timeline-time">${item.timestamp}</span>
+                  <div class="history-row ${h.isCorrect ? 'hist-correct' : 'hist-wrong'}">
+                    <span class="hist-icon">${h.isCorrect ? '✓' : '✗'}</span>
+                    <span class="hist-title">${title}</span>
+                    <span class="hist-diff badge badge-sm badge-outline">${h.difficulty}</span>
+                    <span class="hist-time">${h.timestamp}</span>
                   </div>
                 `;
               }).join("")}
@@ -239,27 +229,17 @@ export const DASHBOARD = {
       </div>
     `;
 
-    // Wire buttons
-    const resetBtn = this.container.querySelector("#btn-reset-progress");
+    const resetBtn = this.container.querySelector("#btn-reset-stats");
     if (resetBtn) {
       resetBtn.onclick = () => {
-        if (confirm("Reset all student mastery and attempt history?")) {
+        if (confirm("Are you sure you want to reset your performance analytics?")) {
           this.reset();
         }
       };
     }
 
-    this.container.querySelectorAll(".btn-practice-weak").forEach(btn => {
-      btn.onclick = () => {
-        const tid = btn.dataset.topic;
-        const quizTab = document.querySelector('[data-tab="quiz"]');
-        if (quizTab) quizTab.click();
-        const sel = document.getElementById("quiz-filter-topic");
-        if (sel) {
-          sel.value = tid;
-          document.getElementById("btn-start-quiz").click();
-        }
-      };
-    });
+    if (window.app && window.app.renderMath) {
+      window.app.renderMath(this.container);
+    }
   }
 };
